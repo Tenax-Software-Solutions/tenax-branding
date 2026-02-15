@@ -233,6 +233,18 @@ apply_config() {
         # Branding block (nested YAML) - applicationTitle and faviconUrl
         if grep -q "opensearchDashboards:" "${DASHBOARD_CONFIG}" 2>/dev/null; then
             log "  [OK] opensearchDashboards branding block already present"
+            # Verify applicationTitle has the correct value
+            if grep -q 'applicationTitle:' "${DASHBOARD_CONFIG}" 2>/dev/null; then
+                if ! grep -q 'applicationTitle: "Tenax SecureOps"' "${DASHBOARD_CONFIG}" 2>/dev/null; then
+                    sed -i 's/applicationTitle:.*/applicationTitle: "Tenax SecureOps"/' "${DASHBOARD_CONFIG}"
+                    log "  [FIX] applicationTitle corrected to \"Tenax SecureOps\""
+                else
+                    log "  [OK] applicationTitle is correct"
+                fi
+            else
+                sed -i '/branding:/a\    applicationTitle: "Tenax SecureOps"' "${DASHBOARD_CONFIG}"
+                log "  [ADD] opensearchDashboards.branding.applicationTitle"
+            fi
             # Add faviconUrl under existing branding block if missing
             if ! grep -q "faviconUrl:" "${DASHBOARD_CONFIG}" 2>/dev/null; then
                 sed -i '/applicationTitle:/a\    faviconUrl: "/ui/favicons/favicon.ico"' "${DASHBOARD_CONFIG}"
@@ -257,7 +269,12 @@ YAML
             local key="${pair%%|*}"
             local value="${pair#*|}"
             if grep -q "^${key}:" "${DASHBOARD_CONFIG}" 2>/dev/null; then
-                log "  [OK] ${key} already present"
+                if grep -q "^${key}: ${value}$" "${DASHBOARD_CONFIG}" 2>/dev/null; then
+                    log "  [OK] ${key} already correct"
+                else
+                    sed -i "s|^${key}:.*|${key}: ${value}|" "${DASHBOARD_CONFIG}"
+                    log "  [FIX] ${key} corrected to ${value}"
+                fi
             else
                 log "  [ADD] ${key}: ${value}"
                 echo "${key}: ${value}" >> "${DASHBOARD_CONFIG}"
@@ -286,7 +303,12 @@ YAML
             local key="${pair%%|*}"
             local value="${pair#*|}"
             if grep -q "^${key}:" "${WAZUH_CONFIG}" 2>/dev/null; then
-                log "  [OK] ${key} already present"
+                if grep -q "^${key}: \"${value}\"" "${WAZUH_CONFIG}" 2>/dev/null; then
+                    log "  [OK] ${key} already correct"
+                else
+                    sed -i "s|^${key}:.*|${key}: \"${value}\"|" "${WAZUH_CONFIG}"
+                    log "  [FIX] ${key} corrected to \"${value}\""
+                fi
             else
                 log "  [ADD] ${key}: \"${value}\""
                 echo "${key}: \"${value}\"" >> "${WAZUH_CONFIG}"
