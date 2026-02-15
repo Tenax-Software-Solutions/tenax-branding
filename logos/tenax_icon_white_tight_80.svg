@@ -1,0 +1,13 @@
+<ns0:svg xmlns:ns0="http://www.w3.org/2000/svg" id="Layer_2" data-name="Layer 2" viewBox="-6.869600 -4.629600 86.419200 86.419200" width="80" height="80" preserveAspectRatio="xMidYMid meet">
+  <ns0:defs>
+    <ns0:style>
+      .cls-1 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+    </ns0:style>
+  </ns0:defs>
+  <ns0:g id="Layer_1-2" data-name="Layer 1">
+    <ns0:path class="cls-1" d="m22.7,8.39l-1.36,46.59h-10.89L0,12.84l22.7-4.45Zm-13.45,49.59l1.56,19.19,30.17-8.54,2.66-10.64H9.24Zm56.58,17.56l.36-50.65-11.19.74-12.2,48.01,23.03,1.91Zm6.86-54.09L67.79,0,25.58,12.8l-.32,11.6,47.42-2.95Zm-35.47,12.05c-3.75,0-6.8,3.04-6.8,6.8s3.04,6.8,6.8,6.8,6.8-3.04,6.8-6.8-3.04-6.8-6.8-6.8Z" />
+  </ns0:g>
+</ns0:svg>
