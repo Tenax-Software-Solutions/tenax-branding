@@ -8,19 +8,24 @@
 # overwrite the logo files in the assets directory, restoring Wazuh defaults.
 #
 # PREREQUISITES:
-#   - Tenax logo source files must exist in LOGO_SOURCE_DIR (see below)
 #   - Run as root or with sudo
+#   - Logo source files in ./logos/ (next to this script). They ship in the repo,
+#     so no separate copy step is needed. Override LOGO_SOURCE_DIR to use another dir.
 #
 # USAGE:
-#   sudo bash /root/siem-whitelabel/apply-whitelabel.sh
+#   sudo bash <repo>/applications/siem-whitelabel/apply-whitelabel.sh
 # =============================================================================
 
 set -euo pipefail
 
+# Resolve paths relative to this script so logos + backups come from the repo,
+# wherever it's checked out / copied. (Override LOGO_SOURCE_DIR to point elsewhere.)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # -----------------------------------------------------------------------------
 # Configuration
 # -----------------------------------------------------------------------------
-LOGO_SOURCE_DIR="/root/whitelabel"
+LOGO_SOURCE_DIR="${LOGO_SOURCE_DIR:-${SCRIPT_DIR}/logos}"
 ASSETS_DIR="/usr/share/wazuh-dashboard/src/core/server/core_app/assets"
 LOGO_TARGET_DIR="${ASSETS_DIR}/logos"
 FAVICON_TARGET_DIR="${ASSETS_DIR}/favicons"
@@ -28,7 +33,7 @@ BRANDING_TARGET_DIR="${ASSETS_DIR}/default_branding"
 CORE_ENTRY_JS="/usr/share/wazuh-dashboard/src/core/target/public/core.entry.js"
 SECURITY_PLUGIN_JS="/usr/share/wazuh-dashboard/plugins/securityDashboards/target/public/securityDashboards.plugin.js"
 WAZUH_PLUGIN_JS="/usr/share/wazuh-dashboard/plugins/wazuh/target/public/wazuh.plugin.js"
-BACKUP_DIR="/root/siem-whitelabel/backups/$(date +%Y%m%d_%H%M%S)"
+BACKUP_DIR="${SCRIPT_DIR}/backups/$(date +%Y%m%d_%H%M%S)"
 DASHBOARD_CONFIG="/etc/wazuh-dashboard/opensearch_dashboards.yml"
 WAZUH_CONFIG="/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml"
 

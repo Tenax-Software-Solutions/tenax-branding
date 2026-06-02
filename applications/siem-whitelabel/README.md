@@ -33,25 +33,26 @@ of the original files is created on every run.
 
 - Wazuh Dashboard installed at `/usr/share/wazuh-dashboard/`
 - Root or sudo access
-- Logo source files deployed to `/root/whitelabel/` (see [Setup](#setup))
+- The logo source files in `logos/` (they ship with this folder — no separate copy needed)
 
 ## Setup (SIEM / dashboard server)
 
-The server is provisioned by **manual copy** — it does not clone or pull. Place
-this folder's contents at `/root/siem-whitelabel/` on the server (the script's
-backup path expects that location), then stage the logos where the script reads
-them:
+The server is provisioned by **manual copy** — it does not clone or pull. Copy
+this folder (`applications/siem-whitelabel/`, including its `logos/`) anywhere on
+the server and run the script. It is **self-contained**: it sources logos from
+its own `logos/` directory and writes backups to `./backups/`, so there's no
+separate staging step.
 
 ```bash
-# On the dashboard server, after copying this folder
-# (applications/siem-whitelabel/) to /root/siem-whitelabel/:
-mkdir -p /root/whitelabel
-cp /root/siem-whitelabel/logos/* /root/whitelabel/
+# e.g. copied to /root/siem-whitelabel/ on the dashboard server:
+sudo bash /root/siem-whitelabel/apply-whitelabel.sh
 ```
 
-The script's internal paths (`LOGO_SOURCE_DIR=/root/whitelabel`, backups under
-`/root/siem-whitelabel/backups/`) are unchanged — keep this folder at
-`/root/siem-whitelabel/` so they resolve.
+To source logos from a different directory, set `LOGO_SOURCE_DIR`:
+
+```bash
+sudo LOGO_SOURCE_DIR=/some/other/dir bash /root/siem-whitelabel/apply-whitelabel.sh
+```
 
 ## Usage
 
