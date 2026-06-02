@@ -1,137 +1,34 @@
-# Tenax SecureOps - Wazuh Dashboard Whitelabel
+# tenax-branding
 
-Replaces default Wazuh/OpenSearch branding in the Wazuh Dashboard with Tenax
-SecureOps logos, icons, and configuration. Must be re-run after every Wazuh
-Dashboard upgrade since upgrades overwrite the modified files.
+Single source of truth for Tenax brand assets and the tools that apply them.
 
-## What the Script Does
+(Formerly `siem-whitelabel` — renamed and broadened to cover all Tenax branding,
+not just the SIEM dashboard.)
 
-1. **Replaces 16 logo SVGs** across light/dark theme variants (login screen,
-   header, spinners, marks, watermarks)
-2. **Replaces 2 OpenSearch branding marks** (default and dark mode)
-3. **Replaces the favicon** with the Tenax icon
-4. **Hides the Help menu** button from the dashboard header (CSS patch on
-   compiled bundles)
-5. **Removes the About page** from the Dashboard Management sidebar
-6. **Sets configuration values** in `opensearch_dashboards.yml` and `wazuh.yml`:
-   - Browser title: "Tenax SecureOps"
-   - Login page brand image
-   - App/healthcheck/report logos
-   - Report header and footer text
-7. **Restarts the dashboard service** to apply all changes
-
-All operations are idempotent — safe to run multiple times. A timestamped backup
-of the original files is created on every run.
-
-## Prerequisites
-
-- Wazuh Dashboard installed at `/usr/share/wazuh-dashboard/`
-- Root or sudo access
-- Logo source files deployed to `/root/whitelabel/` (see [Setup](#setup))
-
-## Setup
-
-Copy the logo files from this repo to the expected location on the server:
-
-```bash
-# Clone the repo
-git clone https://git.ippathways.net/Tenax/siem-whitelabel.git /root/siem-whitelabel
-
-# Copy logos to the source directory the script expects
-cp /root/siem-whitelabel/logos/* /root/whitelabel/
-```
-
-## Usage
-
-```bash
-sudo bash /root/siem-whitelabel/apply-whitelabel.sh
-```
-
-### Example Output
+## Layout
 
 ```
-[INFO]  ============================================
-[INFO]  Tenax SecureOps Whitelabel - Logo Replacement
-[INFO]  ============================================
-[INFO]
-[INFO]  Backing up originals to /root/siem-whitelabel/backups/20260215_191042
-[INFO]  Backup complete
-[INFO]
-[INFO]  Replacing logo files...
-[INFO]  Replaced 3/3 files with tenax_ipp_main_logo_black.svg
-[INFO]  Replaced 2/2 files with tenax_ipp_main_logo_white.svg
-[INFO]  Replaced 7/7 files with tenax_icon_black_tight_80.svg
-[INFO]  Replaced 4/4 files with tenax_icon_white_tight_80.svg
-[INFO]
-[INFO]  Replacing default branding marks...
-[INFO]    Replaced opensearch_mark_default_mode.svg
-[INFO]    Replaced opensearch_mark_dark_mode.svg
-[INFO]
-[INFO]  Replacing favicons...
-[INFO]    Replaced favicon.ico with tenax_favicon.ico
-[INFO]
-[INFO]  Patching UI bundles...
-[INFO]    [OK] core.entry.js
-[INFO]    [OK] securityDashboards.plugin.js
-[INFO]    [OK] wazuh.plugin.js
-[INFO]
-[INFO]  Checking configuration files...
-[INFO]    [OK] opensearchDashboards branding block already present
-[INFO]    [OK] opensearch_security.ui.basicauth.login.showbrandimage already present
-[INFO]    [OK] opensearch_security.ui.basicauth.login.brandimage already present
-[INFO]    [OK] customization.logo.app already present
-[INFO]    [OK] customization.logo.healthcheck already present
-[INFO]    [OK] customization.logo.reports already present
-[INFO]    [OK] customization.reports.footer already present
-[INFO]    [OK] customization.reports.header already present
-[INFO]
-[INFO]  Restarting wazuh-dashboard service...
-[INFO]  Service restarted successfully
-[INFO]
-[INFO]  ============================================
-[INFO]  Whitelabel complete.
-[INFO]  ============================================
+brand-guide.md              Color palette + logo/favicon usage guidance
+assets/
+  icons/                    Master Tenax icon — @4x marketing originals (all tones)
+  logos/                    Master Tenax + IPP main logo — @4x originals (all tones)
+applications/
+  siem-whitelabel/          Wazuh dashboard whitelabel tool (script + working logos + docs)
 ```
 
-## Post-Upgrade Checklist
+## What's here
 
-1. Run the script: `sudo bash /root/siem-whitelabel/apply-whitelabel.sh`
-2. Verify the output shows no errors or missing files
-3. Spot-check in a browser:
-   - Login page shows Tenax logo
-   - Browser tab shows "Tenax SecureOps" title and Tenax favicon
-   - Dashboard header shows Tenax logo
-   - Help menu button is hidden
-   - About page is removed from Dashboard Management
-   - Toggle light/dark theme and verify both variants
-   - Generate a test report and verify logo + header/footer text
+- **`assets/`** — the canonical marketing originals. Everything else (and every
+  consuming app) derives or copies from these. Don't edit in place; replace with
+  new marketing exports.
+- **`brand-guide.md`** — the palette (`#181818` bg, `#ef910a` gold, …) and the
+  logo/favicon usage rules, as applied across Tenax web surfaces.
+- **`applications/`** — concrete applications of the brand. Today: the SIEM
+  (Wazuh) dashboard whitelabel. The on-call app / training course are separate
+  repos that **vendor copies** of `assets/` rather than depend on this repo.
 
-## Reverting to Defaults
+## Consuming the assets
 
-Each script run creates a timestamped backup:
-
-```bash
-BACKUP="/root/siem-whitelabel/backups/<timestamp>"
-ASSETS="/usr/share/wazuh-dashboard/src/core/server/core_app/assets"
-sudo cp -a "$BACKUP/logos/." "$ASSETS/logos/"
-sudo cp -a "$BACKUP/favicons/." "$ASSETS/favicons/"
-sudo cp -a "$BACKUP/default_branding/." "$ASSETS/default_branding/"
-sudo systemctl restart wazuh-dashboard
-```
-
-## Logo Source Files
-
-Located in the `logos/` directory of this repo. These are renamed from the
-marketing originals for filesystem compatibility.
-
-| Marketing Original             | Repo Filename                        | Used For                     |
-|--------------------------------|--------------------------------------|------------------------------|
-| TENAX IPP MAIN LOGO_BLACK.SVG | `tenax_ipp_main_logo_black.svg`      | Light theme logos             |
-| TENAX IPP MAIN LOGO_BLACK.PNG | `tenax_ipp_main_logo_black.png`      | PDF report logos              |
-| TENAX IPP MAIN LOGO_WHITE.SVG | `tenax_ipp_main_logo_white.svg`      | Dark theme logos              |
-| TENAX_ICON_BLACK_TIGHT_80     | `tenax_icon_black_tight_80.svg`      | Light theme icons/marks       |
-| TENAX_ICON_WHITE_TIGHT_80     | `tenax_icon_white_tight_80.svg`      | Dark theme icons/marks        |
-| TENAX_FAVICON.ICO             | `tenax_favicon.ico`                  | Browser tab favicon           |
-
-See [WHITELABEL.md](WHITELABEL.md) for the complete file-by-file replacement map
-and configuration reference.
+Apps should copy what they need into their own repo and bake it into their build
+(this is what the on-call app does with its favicon/logo). Treat this repo as the
+upstream you copy *from*, not a runtime dependency.
