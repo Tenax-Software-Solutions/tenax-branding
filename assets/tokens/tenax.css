@@ -133,21 +133,32 @@
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016; /* dark text on an orange fill; white fails at 3.02:1 */
 
-  /* Primary actions are a horizontal gradient pill. Not in the identity PDF --
-     it comes from the approved homepage design, which uses it for every primary
-     CTA, the form submit and the active tab chip.
+  /* ACTION ORANGE -- Signal Orange darkened so it can be a fill.
+     Not in the identity PDF, and not a rounding error: it appears independently
+     in two design variants, as the solid button fill in V1 (#C34830) and as the
+     gradient end stop in V3 (#C24830). One unit apart, arrived at through two
+     different button treatments.
 
-     Stops measured off the design at full resolution and cross-checked on three
-     buttons of different widths, which agreed: start #213D6B (Sentinel Blue,
-     exactly), end #C24830, angle 90deg with zero vertical variation.
+     It exists so a white label stays legible. White on --tenax-action is 4.90:1;
+     white on --tenax-accent is 3.29:1 and fails AA. The one variant that used
+     Signal Orange as a button fill (V2) has inaccessible buttons because of it.
 
-     Note the end is NOT Signal Orange -- it is deeper. That matters: a white
-     label clears 4.5:1 across the entire ramp (worst point 4.93:1 at the end),
-     where ending at Signal Orange would have dropped to 3.29:1 and failed. The
-     darkening looks deliberate; treat it as load-bearing, not a rounding error. */
-  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #c24830);
+     Do NOT "correct" this to --tenax-accent. tools/check-contrast.py will catch
+     it, but the point is that the darkening is the whole reason it works. */
+  --tenax-action: #c24830;
+  --tenax-on-action: #ffffff;
+
+  /* Primary actions are a horizontal gradient pill, from Sentinel Blue to the
+     action orange. Measured off the design at full resolution and cross-checked
+     on three buttons of different widths, which agreed: 90deg, zero vertical
+     variation. A white label clears AA across the entire ramp (worst 4.93:1). */
   --tenax-accent-gradient-start: #213d6b;
-  --tenax-accent-gradient-end: #c24830;
+  --tenax-accent-gradient-end: var(--tenax-action);
+  --tenax-accent-gradient: linear-gradient(
+    90deg,
+    var(--tenax-accent-gradient-start),
+    var(--tenax-accent-gradient-end)
+  );
   --tenax-on-accent-gradient: #ffffff;
 
   --tenax-focus: #f45a3c;
@@ -196,9 +207,16 @@
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016;
 
-  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #c24830);
+  /* V1's light sections use the same action orange as a solid button fill. */
+  --tenax-action: #c24830;
+  --tenax-on-action: #ffffff;
   --tenax-accent-gradient-start: #213d6b;
-  --tenax-accent-gradient-end: #c24830;
+  --tenax-accent-gradient-end: var(--tenax-action);
+  --tenax-accent-gradient: linear-gradient(
+    90deg,
+    var(--tenax-accent-gradient-start),
+    var(--tenax-accent-gradient-end)
+  );
   --tenax-on-accent-gradient: #ffffff;
 
   --tenax-focus: #b7270a;

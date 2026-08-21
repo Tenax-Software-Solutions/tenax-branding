@@ -39,6 +39,8 @@ CONTRACT = [
     ("--tenax-accent-text", "--tenax-surface", AA_NORMAL, "orange word highlights on a card"),
     ("--tenax-on-accent", "--tenax-accent", AA_NORMAL, "label on an orange fill"),
     ("--tenax-on-blue", "--tenax-blue-surface", AA_NORMAL, "text on a Sentinel Blue field"),
+    ("--tenax-on-action", "--tenax-action", AA_NORMAL, "label on a solid action-orange fill"),
+    ("--tenax-action", "--tenax-bg", AA_NONTEXT, "action-orange fill against the page"),
     ("--tenax-link", "--tenax-bg", AA_NORMAL, "links"),
     ("--tenax-focus", "--tenax-bg", AA_NONTEXT, "focus ring against the page"),
     ("--tenax-focus", "--tenax-surface", AA_NONTEXT, "focus ring against a card"),
@@ -57,6 +59,9 @@ HAZARDS = [
      "Sentinel Blue as a foreground on Command Black — why blue is a surface, never text"),
     ("--tenax-signal-orange", "--tenax-secure-white",
      "Signal Orange as text on Secure White — why light mode needs --tenax-accent-text"),
+    ("--tenax-on-action", "--tenax-accent",
+     "a white label on Signal Orange — why --tenax-action is darkened, and what design "
+     "variant V2 shipped"),
 ]
 
 
@@ -85,7 +90,7 @@ def mix(a: str, b: str, t: float) -> str:
     )
 
 
-def check_gradient(css: str) -> int:
+def check_gradient(tokens: dict[str, str]) -> int:
     """The primary action fill is a gradient, so a single token pair cannot
     describe its label contrast. Sample along it instead.
 
@@ -93,12 +98,12 @@ def check_gradient(css: str) -> int:
     must pass. The orange end is allowed to fall to large-text-only -- that is a
     documented consequence of the design, not a regression.
     """
-    m = re.search(r"--tenax-accent-gradient:\s*linear-gradient\([^,]+,\s*(#[0-9a-fA-F]{6})\s*,\s*(#[0-9a-fA-F]{6})\s*\)", css)
-    if not m:
-        print("\nGRADIENT\n  no --tenax-accent-gradient found — skipped")
+    need = ("--tenax-accent-gradient-start", "--tenax-accent-gradient-end",
+            "--tenax-on-accent-gradient")
+    if not all(k in tokens for k in need):
+        print("\nGRADIENT\n  gradient tokens not found — skipped")
         return 0
-    start, end = m.group(1), m.group(2)
-    label = re.search(r"--tenax-on-accent-gradient:\s*(#[0-9a-fA-F]{6})", css).group(1)
+    start, end, label = (tokens[k] for k in need)
 
     print(f"\nPRIMARY ACTION GRADIENT  {start} -> {end}, label {label}")
     stops = [i / 10 for i in range(11)]
@@ -127,9 +132,21 @@ def parse_themes(css: str) -> dict[str, dict[str, str]]:
     themes: dict[str, dict[str, str]] = {"dark": {}, "light": {}}
     for selector, body in blocks:
         target = "dark" if selector == ":root" else "light"
-        for name, value in re.findall(r"(--tenax-[\w-]+)\s*:\s*(#[0-9a-fA-F]{3,8})\s*;", body):
-            themes[target][name] = value
+        pattern = r"(--tenax-[\w-]+)\s*:\s*(#[0-9a-fA-F]{3,8}|var\(\s*--tenax-[\w-]+\s*\))\s*;"
+        for name, value in re.findall(pattern, body):
+            themes[target][name] = value.strip()
     themes["light"] = {**themes["dark"], **themes["light"]}
+
+    # Resolve var() indirection so callers always see a literal colour.
+    for theme in themes.values():
+        for name in list(theme):
+            seen = set()
+            while theme[name].startswith("var("):
+                ref = theme[name][4:-1].strip()
+                if ref in seen or ref not in theme:
+                    break            # cycle, or points outside the palette
+                seen.add(ref)
+                theme[name] = theme[ref]
     return themes
 
 
@@ -161,7 +178,7 @@ def main() -> int:
     for fg, bg, note in HAZARDS:
         print(f"  {ratio(dark[fg], dark[bg]):>7.2f}        {note}")
 
-    failures += check_gradient(css)
+    failures += check_gradient(themes["dark"])
 
     if failures:
         print(f"\n{failures} contrast contract violation(s).")

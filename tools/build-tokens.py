@@ -58,7 +58,28 @@ def parse(css: str) -> dict:
     for selector, body in blocks:
         target = "dark" if selector == ":root" else "light"
         for name, value in re.findall(r"--tenax-([\w-]+)\s*:\s*([^;]+);", body):
-            raw[target][name] = " ".join(value.split())
+            tidy = " ".join(value.split()).replace("( ", "(").replace(" )", ")")
+            raw[target][name] = tidy
+
+    # Consumers of this file are not CSS engines -- Tailwind configs, report
+    # generators, third-party dashboard themes. Resolve var() to literals so they
+    # do not each have to reimplement the cascade.
+    for target in ("dark", "light"):
+        table = {**raw["dark"], **raw[target]}
+        for name, value in list(raw[target].items()):
+            for _ in range(8):
+                refs = re.findall(r"var\(\s*--tenax-([\w-]+)\s*\)", value)
+                if not refs:
+                    break
+                for ref in refs:
+                    if ref not in table:
+                        break
+                    value = re.sub(r"var\(\s*--tenax-" + re.escape(ref) + r"\s*\)",
+                                   table[ref], value)
+                else:
+                    continue
+                break
+            raw[target][name] = value
 
     out: dict = {
         "$comment": (

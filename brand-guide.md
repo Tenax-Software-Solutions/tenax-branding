@@ -104,9 +104,35 @@ Additional scoping rule: **brand orange never appears inside alerting or validat
 UI.** Inside an alert panel, a severity table or a form-error region, orange is off the
 table entirely.
 
-### Primary actions: the blue → orange gradient
+## Primary actions
 
-`--tenax-accent-gradient` — `linear-gradient(90deg, #213D6B, #C24830)`.
+Two tokens do this work: a solid fill and a gradient built from it.
+
+### Action orange — `--tenax-action` `#C24830`
+
+Signal Orange, darkened so it can be a **fill**. This is not in the identity PDF, and it
+is not a rounding error: it appears independently in two design variants — as the solid
+button fill in V1 (`#C34830`) and as the gradient end stop in V3 (`#C24830`). One unit
+apart, reached through two different button treatments.
+
+It exists so a white label stays legible:
+
+| Fill | White label |
+|------|-------------|
+| `--tenax-action` `#C24830` | **4.90:1** ✓ |
+| `--tenax-accent` `#F45A3C` | 3.29:1 ✗ |
+
+Use `--tenax-action` for any solid orange fill, with `--tenax-on-action` (white) as the
+label. **Never substitute `--tenax-accent`** — variant V2 did exactly that and shipped
+buttons that fail AA. `tools/check-contrast.py` carries both as a contract and a
+documented hazard.
+
+The distinction in one line: **`--tenax-accent` is for marks you read *through* (text,
+icons, rules); `--tenax-action` is for surfaces you read *on top of*.**
+
+### The gradient
+
+`--tenax-accent-gradient` — `linear-gradient(90deg, var(--tenax-accent-gradient-start), var(--tenax-accent-gradient-end))`, resolving to `#213D6B → #C24830`.
 
 This is **not in the identity PDF**. It comes from the approved homepage design, which
 uses it for every primary CTA, the contact-form submit and the active tab chip. It is the
@@ -120,13 +146,12 @@ of different widths, which agreed: start `#213D6B` — Sentinel Blue exactly —
 - Secondary action: ghost pill — transparent, `--tenax-border-strong`, `--tenax-text` label.
 - Never use solid `--tenax-accent` as a button fill.
 
-**The end stop is deeper than Signal Orange, and that is load-bearing.** A white label
-clears 4.5:1 across the entire ramp, worst point **4.93:1**. Had the gradient ended at
-Signal Orange `#F45A3C` it would have fallen to 3.29:1 and failed AA. Do not "correct" the
-end stop to the brand orange — it would break the button's accessibility.
-`tools/check-contrast.py` samples along the gradient and will catch it if someone does.
+**The end stop is `--tenax-action`, not Signal Orange, and that is load-bearing.** A
+white label clears 4.5:1 across the entire ramp, worst point **4.93:1**. Ending at
+`#F45A3C` would have fallen to 3.29:1 and failed AA. `tools/check-contrast.py` samples
+along the gradient and will catch a regression.
 
-### Status colours
+## Status colours
 
 Not part of the identity guide — defined here because apps need them. All pass AA on
 both `--tenax-bg` and `--tenax-surface`, in both themes.
@@ -308,6 +333,30 @@ Emphasise innovation, resilience and *proactive* security rather than reactive
 problem-solving — environments and people working with purpose. Abstract technology
 elements and modern infrastructure, polished and premium. Every image should support the
 message that Tenax helps organisations stay ahead of evolving threats.
+
+---
+
+## Which design variant these rules come from
+
+The client-review file carries three homepage variants. **V3 is the most developed and is
+what this guide encodes.** They agree on the things that matter most — `#0D1016`
+background, Urbanist/Sora, `primary-inverse` in nav and footer, and uppercase orange
+category kickers all appear in every variant — but two rules below are **V3-specific**
+and should be revisited if the direction changes:
+
+| Rule | V1 | V2 | V3 (encoded here) |
+|------|----|----|-------------------|
+| Primary button | solid `#C34830` | solid `#F45A3C` — **fails AA** | gradient → `#C24830` |
+| Button case | sentence | **UPPERCASE** | sentence |
+| Orange words per headline | 0 in hero, 2 in a section head | 3 | exactly 1 |
+| Theme | **29% light sections** | all dark | all dark |
+
+So: *"exactly one orange keyword per headline"* and *"buttons are sentence case"* describe
+V3, not the brand as a whole. `--tenax-action` and the accent/action split, by contrast,
+hold across variants and are safe.
+
+V1's light sections also confirm the light-mode tokens here — `#F5F5F3` page with
+`#FFFFFF` cards, and orange used only at display size, never for small text.
 
 ---
 
