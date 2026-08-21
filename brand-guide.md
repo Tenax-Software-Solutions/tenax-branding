@@ -69,8 +69,17 @@ logo. It marks **brand and navigational emphasis**, at small scale:
 - focus rings
 - thin rules and dividers that need to read as branded
 
-It is **not** a status colour, and it is **not** a large fill. Do not paint a hero
-band, a card, a filled button or a table row in it.
+It is **not** a status colour, and **solid orange is never a large fill**. Do not paint
+a hero band, a card or a table row in it.
+
+The one place orange appears as a fill is the primary action gradient below, where it is
+the end stop rather than the whole surface.
+
+The approved homepage design applies this with real discipline: **exactly one keyword per
+headline** in orange, never a phrase and never two — "Ahead of the *Threat*.", "*Security*
+You Can Measure.", "Proactive Security Starts *Here*.", "Comprehensive *Cybersecurity*
+Services". Everything else in the headline is Secure White. Icons are orange line-art, and
+small category labels ("Proactive", "Expert-Led") are orange over a muted sub-label.
 
 ### Orange vs. severity
 
@@ -94,6 +103,26 @@ learnable colours. `reference/index.html` demonstrates the two side by side.
 Additional scoping rule: **brand orange never appears inside alerting or validation
 UI.** Inside an alert panel, a severity table or a form-error region, orange is off the
 table entirely.
+
+### Primary actions: the blue → orange gradient
+
+`--tenax-accent-gradient` — `linear-gradient(90deg, #213D6B, #F45A3C)`.
+
+This is **not in the identity PDF**. It comes from the approved homepage design, which
+uses it for every primary CTA ("Explore Services", "Learn More", "View All Services") and
+for the active tab chip. It is the one place the two brand colours meet, and it is the
+only sanctioned orange fill.
+
+- Primary action: gradient fill, **pill** (`--tenax-radius-full`), white label,
+  sentence case.
+- Secondary action: ghost pill — transparent, `--tenax-border-strong`, `--tenax-text` label.
+- Never use solid `--tenax-accent` as a button fill.
+
+**Label contrast.** A white label clears 4.5:1 across the first ~70% of the ramp and falls
+to 3.29:1 at the pure-orange end. Centred labels sit over the compliant region, so keep
+primary button text short; if a long label is unavoidable, switch to
+`--tenax-on-accent-gradient-safe` (Command Black, 5.78:1 at the worst point).
+`tools/check-contrast.py` samples the gradient and reports where the threshold falls.
 
 ### Status colours
 
@@ -126,9 +155,10 @@ silently fails to load takes the brand's typography with it.
 The identity guide specifies no monospace face. The system stack is used for log and
 code output; if marketing wants a specified mono, that's an open request.
 
-**Tracking:** the wordmark sets SOLUTIONS with wide letterspacing. Echo it
-(`--tenax-tracking-wide`, `0.18em`) on small uppercase labels — eyebrows, table headers,
-button text. Never on body copy.
+**Case and tracking.** The wordmark sets SOLUTIONS with wide letterspacing, but the
+homepage design does *not* carry that into UI text: buttons, eyebrow chips and labels are
+all **sentence case**. Reserve `--tenax-tracking-wide` (`0.18em`) for dense-data table
+headers, where it aids scanning. Never on body copy, buttons or chips.
 
 Type scale: `--tenax-text-xs` `0.75rem` → `--tenax-text-5xl` `3.25rem`; see
 `reference/index.html` for the rendered scale.
@@ -156,6 +186,9 @@ Four lockups, four colour variants each, in `assets/logos/`.
 Prefer `inverse` and `color`; they carry the orange dot, which is the only brand colour
 in the mark. `white`/`black` drop it and should be used only where a second colour isn't
 available.
+
+**Header:** the homepage uses `primary-inverse.svg` in the navbar, which confirms it as
+the default for Tenax app headers.
 
 **Sizing:** 1.8–2 rem tall in a header or nav; 2.5 rem+ on a login or splash screen.
 Never place the `color` variant on Command Black, or `inverse` on Secure White — the
@@ -269,11 +302,22 @@ message that Tenax helps organisations stay ahead of evolving threats.
 
 ---
 
+## Shape language
+
+From the homepage design:
+
+- Buttons, chips and eyebrow labels are **pills** — `--tenax-radius-full`.
+- Cards and panels use `--tenax-radius-xl` (16px).
+- The hero carries a subtle orange particle texture over Command Black. Decorative only;
+  it must never sit behind body copy.
+
+---
+
 ## Open items
 
-- **Primary button colour.** Orange is ruled out as a fill, so the reference page uses a
-  light fill with dark text and Sentinel Blue for secondary. Provisional pending the
-  homepage mockup (Figma `CLIENT-REVIEW---Tenax-Solutions`).
 - **Hex discrepancies** between the identity PDF and the shipped vectors — see
   `ASSET-REQUESTS.md`. Tokens follow the PDF; delivered artwork is left untouched.
 - **Monospace face** unspecified by the identity guide.
+- **Exact gradient stops.** Read from the homepage design at screenshot fidelity and
+  implemented as Sentinel Blue → Signal Orange. Worth confirming the precise stops and
+  angle with the designer.

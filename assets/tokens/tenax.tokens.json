@@ -68,6 +68,7 @@
     "radius-sm": "3px",
     "radius-md": "6px",
     "radius-lg": "10px",
+    "radius-xl": "16px",
     "radius-full": "999px"
   },
   "elevation": {
@@ -91,6 +92,9 @@
       "accent-hover": "#f56a4f",
       "accent-quiet": "#f6836c",
       "on-accent": "#0d1016",
+      "accent-gradient": "linear-gradient(90deg, #213d6b, #f45a3c)",
+      "on-accent-gradient": "#ffffff",
+      "on-accent-gradient-safe": "#0d1016",
       "focus": "#f45a3c",
       "focus-width": "2px",
       "focus-offset": "2px",
@@ -116,6 +120,9 @@
       "accent-hover": "#cb2b0b",
       "accent-quiet": "#f6836c",
       "on-accent": "#0d1016",
+      "accent-gradient": "linear-gradient(90deg, #213d6b, #f45a3c)",
+      "on-accent-gradient": "#ffffff",
+      "on-accent-gradient-safe": "#0d1016",
       "focus": "#b7270a",
       "focus-width": "2px",
       "focus-offset": "2px",

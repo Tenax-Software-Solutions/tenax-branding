@@ -33,11 +33,14 @@
   h3 { font-size: var(--tenax-text-lg); margin-top: var(--tenax-space-6); }
 
   .eyebrow {
+    display: inline-block;
+    background: var(--tenax-surface);
+    border: 1px solid var(--tenax-border);
+    border-radius: var(--tenax-radius-full);
+    padding: 4px 12px;
     font-family: var(--tenax-font-display);
     font-size: var(--tenax-text-xs);
-    font-weight: var(--tenax-weight-bold);
-    letter-spacing: var(--tenax-tracking-wide);
-    text-transform: uppercase;
+    font-weight: var(--tenax-weight-semibold);
     color: var(--tenax-text-muted);
   }
 
@@ -49,7 +52,7 @@
   .card {
     background: var(--tenax-surface);
     border: 1px solid var(--tenax-border);
-    border-radius: var(--tenax-radius-lg);
+    border-radius: var(--tenax-radius-xl);
     padding: var(--tenax-space-4);
   }
 
@@ -76,22 +79,23 @@
   /* --- components --- */
   .btn {
     font-family: var(--tenax-font-display);
-    font-weight: var(--tenax-weight-bold);
+    font-weight: var(--tenax-weight-semibold);
     font-size: var(--tenax-text-sm);
-    letter-spacing: var(--tenax-tracking-wide);
-    text-transform: uppercase;
     padding: var(--tenax-space-3) var(--tenax-space-5);
-    border-radius: var(--tenax-radius-md);
+    border-radius: var(--tenax-radius-full);
     border: 1px solid transparent;
     cursor: pointer;
     transition: background var(--tenax-transition), border-color var(--tenax-transition);
   }
-  .btn-primary { background: var(--tenax-text); color: var(--tenax-bg); }
-  .btn-primary:hover { background: var(--tenax-text-muted); }
-  .btn-secondary { background: var(--tenax-blue-surface); color: var(--tenax-on-blue); }
-  .btn-secondary:hover { background: var(--tenax-blue-surface-hover); }
-  .btn-ghost { background: transparent; color: var(--tenax-text); border-color: var(--tenax-border-strong); }
-  .btn-ghost:hover { border-color: var(--tenax-text-muted); }
+  .btn-primary {
+    background: var(--tenax-accent-gradient);
+    color: var(--tenax-on-accent-gradient);
+  }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-secondary { background: transparent; color: var(--tenax-text); border-color: var(--tenax-border-strong); }
+  .btn-secondary:hover { border-color: var(--tenax-text); }
+  .btn-ghost { background: var(--tenax-surface); color: var(--tenax-text); border-color: var(--tenax-border); }
+  .btn-ghost:hover { border-color: var(--tenax-border-strong); }
   .btn:disabled { opacity: .45; cursor: not-allowed; }
 
   label.field { display: block; margin-bottom: var(--tenax-space-4); }
@@ -114,7 +118,7 @@
   .badge {
     display: inline-flex; align-items: center; gap: 6px;
     font-family: var(--tenax-font-display); font-weight: var(--tenax-weight-bold);
-    font-size: var(--tenax-text-xs); letter-spacing: .06em; text-transform: uppercase;
+    font-size: var(--tenax-text-xs);
     padding: 3px 10px; border-radius: var(--tenax-radius-full);
     color: var(--tenax-on-status);
   }
@@ -233,6 +237,30 @@
     focus rings, small rules.
   </p>
 
+  <h3>Headline pattern</h3>
+  <p class="lede">
+    The homepage design applies this with unusual discipline: <strong>exactly one keyword
+    per headline</strong> in orange, never a phrase, never two. Everything else is Secure
+    White.
+  </p>
+  <div class="card" style="text-align:center;padding:var(--tenax-space-7) var(--tenax-space-5)">
+    <p style="font-family:var(--tenax-font-display);font-size:var(--tenax-text-5xl);font-weight:700;line-height:1.05;margin:0 0 var(--tenax-space-4)">
+      Ahead of the <span style="color:var(--tenax-accent)">Threat</span>.
+    </p>
+    <p style="color:var(--tenax-text-muted);max-width:52ch;margin:0 auto var(--tenax-space-5)">
+      Proactive cybersecurity services that identify vulnerabilities, strengthen defenses,
+      and reduce risk before threats emerge.
+    </p>
+    <div style="display:flex;gap:var(--tenax-space-3);justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-secondary">Schedule a Consultation</button>
+      <button class="btn btn-primary">Explore Services</button>
+    </div>
+  </div>
+  <p class="caption" style="margin-bottom:var(--tenax-space-5)">
+    Other headlines follow the same shape: <em>Security</em> You Can Measure ·
+    Proactive Security Starts <em>Here</em> · Comprehensive <em>Cybersecurity</em> Services
+  </p>
+
   <div class="rule-good">
     <b>Do</b> — use orange as text, icons and rules:
     threat activity <mark>increased 34%</mark> across monitored endpoints.
@@ -268,13 +296,14 @@
     <div class="card">
       <span class="eyebrow">Buttons</span>
       <p class="lede" style="font-size:var(--tenax-text-sm);margin:var(--tenax-space-3) 0">
-        Primary is a light fill, not orange — orange is reserved as an accent, and white
-        text on orange fails contrast at 3.02:1.
-        <em>Provisional pending the homepage mockup.</em>
+        Primary is the Sentinel&nbsp;Blue → Signal&nbsp;Orange gradient pill, as used for
+        every CTA on the homepage. Secondary is a ghost pill. Keep primary labels short —
+        a white label clears AA over the first 70% of the ramp and drops to 3.29:1 at the
+        orange end.
       </p>
       <div style="display:flex;gap:var(--tenax-space-3);flex-wrap:wrap;align-items:center">
-        <button class="btn btn-primary">Run scan</button>
-        <button class="btn btn-secondary">Export</button>
+        <button class="btn btn-primary">Explore Services</button>
+        <button class="btn btn-secondary">Schedule a Consultation</button>
         <button class="btn btn-ghost">Cancel</button>
         <button class="btn btn-ghost" disabled>Disabled</button>
       </div>

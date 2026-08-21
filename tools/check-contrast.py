@@ -78,6 +78,45 @@ def ratio(fg: str, bg: str) -> float:
     return (hi + 0.05) / (lo + 0.05)
 
 
+def mix(a: str, b: str, t: float) -> str:
+    a, b = a.lstrip("#"), b.lstrip("#")
+    return "#%02x%02x%02x" % tuple(
+        round(int(a[i : i + 2], 16) * (1 - t) + int(b[i : i + 2], 16) * t) for i in (0, 2, 4)
+    )
+
+
+def check_gradient(css: str) -> int:
+    """The primary action fill is a gradient, so a single token pair cannot
+    describe its label contrast. Sample along it instead.
+
+    A centred label sits over the middle of the pill, so the midpoint is what
+    must pass. The orange end is allowed to fall to large-text-only -- that is a
+    documented consequence of the design, not a regression.
+    """
+    m = re.search(r"--tenax-accent-gradient:\s*linear-gradient\([^,]+,\s*(#[0-9a-fA-F]{6})\s*,\s*(#[0-9a-fA-F]{6})\s*\)", css)
+    if not m:
+        print("\nGRADIENT\n  no --tenax-accent-gradient found — skipped")
+        return 0
+    start, end = m.group(1), m.group(2)
+    label = re.search(r"--tenax-on-accent-gradient:\s*(#[0-9a-fA-F]{6})", css).group(1)
+
+    print(f"\nPRIMARY ACTION GRADIENT  {start} -> {end}, label {label}")
+    stops = [i / 10 for i in range(11)]
+    ratios = {t: ratio(label, mix(start, end, t)) for t in stops}
+    passing = [t for t, r in ratios.items() if r >= AA_NORMAL]
+    edge = max(passing) if passing else 0.0
+
+    mid = ratios[0.5]
+    ok = mid >= AA_NORMAL
+    print(f"  midpoint (where a centred label sits): {mid:.2f}:1  {'ok' if ok else 'FAIL'}")
+    print(f"  clears AA up to {edge:.0%} along the ramp; worst point {ratios[1.0]:.2f}:1 at the orange end")
+    if ratios[1.0] < AA_LARGE:
+        print("  WARNING: the orange end is below 3:1 even for large text")
+        return 1
+    print("  keep primary button labels short so they stay inside the passing region")
+    return 0 if ok else 1
+
+
 def parse_themes(css: str) -> dict[str, dict[str, str]]:
     """Return {theme: {token: hex}}. Light inherits everything dark declares."""
     blocks = re.findall(r"(:root|\[data-theme=\"light\"\])\s*\{(.*?)\n\}", css, re.S)
@@ -94,7 +133,8 @@ def main() -> int:
     if not CSS.exists():
         print(f"error: {CSS} not found", file=sys.stderr)
         return 2
-    themes = parse_themes(CSS.read_text())
+    css = CSS.read_text()
+    themes = parse_themes(css)
 
     failures = 0
     for theme in ("dark", "light"):
@@ -116,6 +156,8 @@ def main() -> int:
     dark = themes["dark"]
     for fg, bg, note in HAZARDS:
         print(f"  {ratio(dark[fg], dark[bg]):>7.2f}        {note}")
+
+    failures += check_gradient(css)
 
     if failures:
         print(f"\n{failures} contrast contract violation(s).")

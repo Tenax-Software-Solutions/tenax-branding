@@ -68,8 +68,10 @@
   --tenax-leading-snug: 1.35;
   --tenax-leading-normal: 1.6;
 
-  /* The wordmark sets SOLUTIONS with wide tracking; echo it on small
-     uppercase labels (eyebrows, table headers) — never on body copy. */
+  /* The wordmark sets SOLUTIONS with wide tracking. The homepage design does NOT
+     carry that into UI text — buttons, eyebrow chips and labels are all sentence
+     case. Reserve wide tracking for dense-data table headers, where it earns its
+     place, and never for body copy or buttons. */
   --tenax-tracking-wide: 0.18em;
   --tenax-tracking-tight: -0.01em;
 
@@ -94,7 +96,8 @@
   --tenax-radius-sm: 3px;
   --tenax-radius-md: 6px;
   --tenax-radius-lg: 10px;
-  --tenax-radius-full: 999px;
+  --tenax-radius-xl: 16px;   /* cards and panels, per the homepage design */
+  --tenax-radius-full: 999px; /* buttons, chips and eyebrows are pills */
 
   --tenax-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
   --tenax-shadow-md: 0 4px 12px rgb(0 0 0 / 0.4);
@@ -126,6 +129,20 @@
   --tenax-accent-hover: #f56a4f;
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016; /* dark text on an orange fill; white fails at 3.02:1 */
+
+  /* Primary actions are a Sentinel Blue -> Signal Orange gradient pill. This is
+     not in the identity PDF; it comes from the approved homepage design, which
+     uses it for every primary CTA, the active tab chip and inline "Learn more"
+     actions. It is the one place the two brand colours meet.
+
+     A white label clears 4.5:1 across roughly the first three quarters of the
+     ramp and reaches 3.29:1 only at the pure-orange end. Centred labels sit over
+     the compliant region; a label long enough to reach the right edge does not,
+     so keep primary button text short. --tenax-on-accent-gradient-safe is the
+     dark alternative if a long label is unavoidable. */
+  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #f45a3c);
+  --tenax-on-accent-gradient: #ffffff;
+  --tenax-on-accent-gradient-safe: #0d1016;
 
   --tenax-focus: #f45a3c;
   --tenax-focus-width: 2px;
@@ -172,6 +189,10 @@
   --tenax-accent-hover: #cb2b0b;
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016;
+
+  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #f45a3c);
+  --tenax-on-accent-gradient: #ffffff;
+  --tenax-on-accent-gradient-safe: #0d1016;
 
   --tenax-focus: #b7270a;
   --tenax-link: #b7270a;
