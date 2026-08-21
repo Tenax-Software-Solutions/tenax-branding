@@ -404,6 +404,15 @@ Never reconstruct it from the archived combined lockup.
 - **Hex discrepancies** between the identity PDF and the shipped vectors — see
   `ASSET-REQUESTS.md`. Tokens follow the PDF; delivered artwork is left untouched.
 - **Monospace face** unspecified by the identity guide.
-- **Exact gradient stops.** Read from the homepage design at screenshot fidelity and
-  implemented as Sentinel Blue → Signal Orange. Worth confirming the precise stops and
-  angle with the designer.
+- **Which homepage variant is being built.** This is the gating decision. V3 is what the
+  tokens and rules here encode. If **V2** is chosen, its primary buttons fail AA — the fix
+  is a one-token swap from `--tenax-accent` to `--tenax-action`, but someone has to make
+  it before launch. If **V1** is chosen, light-mode tokens move from documented to
+  load-bearing, since 29% of that page is light.
+- **Confirm `--tenax-action` `#C24830`.** Measured independently in V1 (solid fill,
+  `#C34830`) and V3 (gradient end, `#C24830`), but never formally specified. It is the
+  only token here not drawn from the identity palette. See `ASSET-REQUESTS.md`.
+- **IP Pathways co-branding.** The standalone partner mark is missing from the logo
+  package, and the two variants word the relationship differently — V1's footer says
+  "Tenax Solutions, an IP Pathways company", V3 says "proud to be part of IP Pathways".
+  Product footers need one approved form.
