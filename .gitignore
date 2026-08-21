@@ -1,2 +1,5 @@
 *.deb
 backups/
+
+# Design exports dropped in for review — keep them out of the repo
+/*.zip

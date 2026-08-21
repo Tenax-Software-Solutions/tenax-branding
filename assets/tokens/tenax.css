@@ -68,8 +68,10 @@
   --tenax-leading-snug: 1.35;
   --tenax-leading-normal: 1.6;
 
-  /* The wordmark sets SOLUTIONS with wide tracking; echo it on small
-     uppercase labels (eyebrows, table headers) — never on body copy. */
+  /* The wordmark sets SOLUTIONS with wide tracking. The homepage design does NOT
+     carry that into UI text — buttons, eyebrow chips and labels are all sentence
+     case. Reserve wide tracking for dense-data table headers, where it earns its
+     place, and never for body copy or buttons. */
   --tenax-tracking-wide: 0.18em;
   --tenax-tracking-tight: -0.01em;
 
@@ -94,7 +96,8 @@
   --tenax-radius-sm: 3px;
   --tenax-radius-md: 6px;
   --tenax-radius-lg: 10px;
-  --tenax-radius-full: 999px;
+  --tenax-radius-xl: 16px;   /* cards and panels, per the homepage design */
+  --tenax-radius-full: 999px; /* buttons, chips and eyebrows are pills */
 
   --tenax-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35);
   --tenax-shadow-md: 0 4px 12px rgb(0 0 0 / 0.4);
@@ -105,9 +108,12 @@
   /* ---------------------------------------------------------------------
      Semantic — DARK (default)
      --------------------------------------------------------------------- */
+  /* Sampled from the approved homepage design: page #0D1015, card fill #171A20,
+     input fill #23262B. The card elevation is subtler than a straight jump to
+     black-2; inputs and nested boxes sit at roughly black-2. */
   --tenax-bg: #0d1016;
-  --tenax-surface: #24272c;
-  --tenax-surface-raised: #33353a;
+  --tenax-surface: #171a20;
+  --tenax-surface-raised: #23262b;
 
   /* Two border weights: a hairline that separates without drawing attention,
      and a strong one for deliberate dividers. */
@@ -126,6 +132,23 @@
   --tenax-accent-hover: #f56a4f;
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016; /* dark text on an orange fill; white fails at 3.02:1 */
+
+  /* Primary actions are a horizontal gradient pill. Not in the identity PDF --
+     it comes from the approved homepage design, which uses it for every primary
+     CTA, the form submit and the active tab chip.
+
+     Stops measured off the design at full resolution and cross-checked on three
+     buttons of different widths, which agreed: start #213D6B (Sentinel Blue,
+     exactly), end #C24830, angle 90deg with zero vertical variation.
+
+     Note the end is NOT Signal Orange -- it is deeper. That matters: a white
+     label clears 4.5:1 across the entire ramp (worst point 4.93:1 at the end),
+     where ending at Signal Orange would have dropped to 3.29:1 and failed. The
+     darkening looks deliberate; treat it as load-bearing, not a rounding error. */
+  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #c24830);
+  --tenax-accent-gradient-start: #213d6b;
+  --tenax-accent-gradient-end: #c24830;
+  --tenax-on-accent-gradient: #ffffff;
 
   --tenax-focus: #f45a3c;
   --tenax-focus-width: 2px;
@@ -172,6 +195,11 @@
   --tenax-accent-hover: #cb2b0b;
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016;
+
+  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #c24830);
+  --tenax-accent-gradient-start: #213d6b;
+  --tenax-accent-gradient-end: #c24830;
+  --tenax-on-accent-gradient: #ffffff;
 
   --tenax-focus: #b7270a;
   --tenax-link: #b7270a;
