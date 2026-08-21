@@ -11,6 +11,8 @@
 #   - Run as root or with sudo
 #   - Logo source files in ./logos/ (next to this script). They ship in the repo,
 #     so no separate copy step is needed. Override LOGO_SOURCE_DIR to use another dir.
+#     Those files are generated from the repo's assets/ by tools/sync-app-assets.py;
+#     regenerate rather than editing them in place.
 #
 # USAGE:
 #   sudo bash <repo>/applications/siem-whitelabel/apply-whitelabel.sh
@@ -40,30 +42,37 @@ WAZUH_CONFIG="/usr/share/wazuh-dashboard/data/wazuh/config/wazuh.yml"
 # -----------------------------------------------------------------------------
 # Source Logo Mapping
 # -----------------------------------------------------------------------------
-# Marketing Original Name                  -> Whitelabel Filename
-# TENAX IPP MAIN LOGO_BLACK.SVG            -> tenax_ipp_main_logo_black.svg
-# TENAX IPP MAIN LOGO_WHITE.SVG            -> tenax_ipp_main_logo_white.svg
-# TENAX_ICON_BLACK_TIGHT_80                -> tenax_icon_black_tight_80.svg
-# TENAX_ICON_WHITE_TIGHT_80                -> tenax_icon_white_tight_80.svg
-# TENAX IPP MAIN LOGO_BLACK.PNG            -> tenax_ipp_main_logo_black.png  (reports)
-# TENAX_FAVICON.ICO                        -> tenax_favicon.ico              (browser tab)
+# Files in ./logos/ are generated from the repo's assets/ by
+# tools/sync-app-assets.py -- do not edit them here, they will be overwritten.
+#
+# Names describe the BACKGROUND a mark is for, matching how the dashboard names
+# its own targets (*_on_light / *_on_dark).
+#
+# Brand asset                  -> Whitelabel filename
+# logos/primary-color.svg      -> tenax_logo_on_light.svg
+# logos/primary-inverse.svg    -> tenax_logo_on_dark.svg
+# logos/icon-color.svg         -> tenax_icon_on_light.svg
+# logos/icon-inverse.svg       -> tenax_icon_on_dark.svg
+# raster/primary-color-960w.png-> tenax_logo_on_light.png   (PDF reports)
+# favicon/favicon.ico          -> tenax_favicon.ico         (browser tab)
+# favicon/*                    -> favicons/                 (full icon set)
 # -----------------------------------------------------------------------------
 
-# Tenax main logo (black/light variant) replaces these dashboard logos:
-LOGO_BLACK_TARGETS=(
+# Tenax primary lockup, for LIGHT backgrounds:
+LOGO_LIGHT_TARGETS=(
     "spinner_on_light.svg"
     "wazuh_dashboards.svg"
     "wazuh_dashboards_on_light.svg"
 )
 
-# Tenax main logo (white/dark variant) replaces these dashboard logos:
-LOGO_WHITE_TARGETS=(
+# Tenax primary lockup, for DARK backgrounds:
+LOGO_DARK_TARGETS=(
     "spinner_on_dark.svg"
     "wazuh_dashboards_on_dark.svg"
 )
 
-# Tenax icon (black variant) replaces these dashboard icons:
-ICON_BLACK_TARGETS=(
+# Tenax icon, for LIGHT backgrounds:
+ICON_LIGHT_TARGETS=(
     "icon_light.svg"
     "wazuh_mark_on_light.svg"
     "wazuh.svg"
@@ -73,16 +82,15 @@ ICON_BLACK_TARGETS=(
     "wazuh_on_light.svg"
 )
 
-# Tenax icon (white variant) replaces these dashboard icons:
-ICON_WHITE_TARGETS=(
+# Tenax icon, for DARK backgrounds:
+ICON_DARK_TARGETS=(
     "icon_dark.svg"
     "wazuh_mark_on_dark.svg"
     "wazuh_center_mark_on_dark.svg"
     "wazuh_on_dark.svg"
 )
 
-# Tenax icon (black variant) replaces these favicon files (requires PNG/ICO exports):
-# Source files expected in LOGO_SOURCE_DIR/favicons/
+# Full favicon set, shipped in LOGO_SOURCE_DIR/favicons/:
 FAVICON_TARGETS=(
     "favicon.ico"
     "favicon-16x16.png"
@@ -99,10 +107,10 @@ FAVICON_TARGETS=(
 )
 
 # Tenax icon replaces default OpenSearch branding marks:
-BRANDING_TARGETS_BLACK=(
+BRANDING_TARGETS_LIGHT=(
     "opensearch_mark_default_mode.svg"
 )
-BRANDING_TARGETS_WHITE=(
+BRANDING_TARGETS_DARK=(
     "opensearch_mark_dark_mode.svg"
 )
 
@@ -118,10 +126,10 @@ preflight_check() {
     local missing=0
 
     local required_files=(
-        "tenax_ipp_main_logo_black.svg"
-        "tenax_ipp_main_logo_white.svg"
-        "tenax_icon_black_tight_80.svg"
-        "tenax_icon_white_tight_80.svg"
+        "tenax_logo_on_light.svg"
+        "tenax_logo_on_dark.svg"
+        "tenax_icon_on_light.svg"
+        "tenax_icon_on_dark.svg"
     )
 
     for f in "${required_files[@]}"; do
@@ -131,9 +139,16 @@ preflight_check() {
         fi
     done
 
-    if [[ ! -f "${LOGO_SOURCE_DIR}/tenax_ipp_main_logo_black.png" ]]; then
-        warn "Missing PNG for reports: ${LOGO_SOURCE_DIR}/tenax_ipp_main_logo_black.png"
+    if [[ ! -f "${LOGO_SOURCE_DIR}/tenax_logo_on_light.png" ]]; then
+        warn "Missing PNG for reports: ${LOGO_SOURCE_DIR}/tenax_logo_on_light.png"
         warn "Report logos will not be updated."
+    fi
+
+    # The 2026 brand ships a complete favicon set, so a missing favicons/ dir now
+    # means the vendored copy is stale rather than "marketing never sent them".
+    if [[ ! -d "${LOGO_SOURCE_DIR}/favicons" ]]; then
+        warn "No favicons/ directory in ${LOGO_SOURCE_DIR}"
+        warn "Run tools/sync-app-assets.py in the tenax-branding repo to regenerate it."
     fi
 
     if [[ ! -d "${LOGO_TARGET_DIR}" ]]; then
@@ -267,7 +282,7 @@ YAML
 
         local dashboard_pairs=(
             'opensearch_security.ui.basicauth.login.showbrandimage|true'
-            'opensearch_security.ui.basicauth.login.brandimage|"/ui/tenax_ipp_main_logo_black.svg"'
+            'opensearch_security.ui.basicauth.login.brandimage|"/ui/tenax_logo_on_light.svg"'
         )
 
         for pair in "${dashboard_pairs[@]}"; do
@@ -297,9 +312,9 @@ YAML
         log "Verifying Wazuh config customizations in ${WAZUH_CONFIG}"
 
         local config_pairs=(
-            "customization.logo.app|tenax_ipp_main_logo_black.svg"
-            "customization.logo.healthcheck|tenax_ipp_main_logo_black.svg"
-            "customization.logo.reports|tenax_ipp_main_logo_black.png"
+            "customization.logo.app|tenax_logo_on_light.svg"
+            "customization.logo.healthcheck|tenax_logo_on_light.svg"
+            "customization.logo.reports|tenax_logo_on_light.png"
             "customization.reports.footer|Tenax SecureOps"
             "customization.reports.header|Tenax SecureOps"
         )
@@ -340,28 +355,28 @@ backup_originals
 log ""
 log "Replacing logo files..."
 
-replace_logos "tenax_ipp_main_logo_black.svg" "${LOGO_BLACK_TARGETS[@]}"
-replace_logos "tenax_ipp_main_logo_white.svg" "${LOGO_WHITE_TARGETS[@]}"
-replace_logos "tenax_icon_black_tight_80.svg" "${ICON_BLACK_TARGETS[@]}"
-replace_logos "tenax_icon_white_tight_80.svg" "${ICON_WHITE_TARGETS[@]}"
+replace_logos "tenax_logo_on_light.svg" "${LOGO_LIGHT_TARGETS[@]}"
+replace_logos "tenax_logo_on_dark.svg" "${LOGO_DARK_TARGETS[@]}"
+replace_logos "tenax_icon_on_light.svg" "${ICON_LIGHT_TARGETS[@]}"
+replace_logos "tenax_icon_on_dark.svg" "${ICON_DARK_TARGETS[@]}"
 
 log ""
 log "Replacing default branding marks..."
 
-for target in "${BRANDING_TARGETS_BLACK[@]}"; do
+for target in "${BRANDING_TARGETS_LIGHT[@]}"; do
     target_path="${BRANDING_TARGET_DIR}/${target}"
     if [[ -f "${target_path}" ]]; then
-        cp "${LOGO_SOURCE_DIR}/tenax_icon_black_tight_80.svg" "${target_path}"
+        cp "${LOGO_SOURCE_DIR}/tenax_icon_on_light.svg" "${target_path}"
         log "  Replaced ${target}"
     else
         warn "  Target not found (skipped): ${target_path}"
     fi
 done
 
-for target in "${BRANDING_TARGETS_WHITE[@]}"; do
+for target in "${BRANDING_TARGETS_DARK[@]}"; do
     target_path="${BRANDING_TARGET_DIR}/${target}"
     if [[ -f "${target_path}" ]]; then
-        cp "${LOGO_SOURCE_DIR}/tenax_icon_white_tight_80.svg" "${target_path}"
+        cp "${LOGO_SOURCE_DIR}/tenax_icon_on_dark.svg" "${target_path}"
         log "  Replaced ${target}"
     else
         warn "  Target not found (skipped): ${target_path}"
@@ -381,16 +396,18 @@ fi
 
 # Replace remaining favicon PNG/SVG files if marketing provides them
 if [[ -d "${LOGO_SOURCE_DIR}/favicons" ]]; then
-    local_count=0
+    replaced=0
     for target in "${FAVICON_TARGETS[@]}"; do
         if [[ -f "${LOGO_SOURCE_DIR}/favicons/${target}" ]]; then
             cp "${LOGO_SOURCE_DIR}/favicons/${target}" "${FAVICON_TARGET_DIR}/${target}"
-            local_count=$((local_count + 1))
+            replaced=$((replaced + 1))
+        else
+            warn "  Not in source set (skipped): favicons/${target}"
         fi
     done
-    log "  Replaced ${local_count} additional favicon files from favicons/"
+    log "  Replaced ${replaced}/${#FAVICON_TARGETS[@]} favicon files from favicons/"
 else
-    log "  No additional favicon exports found in ${LOGO_SOURCE_DIR}/favicons/ (optional)"
+    warn "  favicons/ missing - falling back to the faviconUrl config only"
 fi
 
 log ""

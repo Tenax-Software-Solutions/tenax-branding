@@ -1,0 +1,138 @@
+{
+  "$comment": "Generated from assets/tokens/tenax.css by tools/build-tokens.py. Do not hand-edit; change the CSS and re-run.",
+  "brand": {
+    "command-black": "#0d1016",
+    "sentinel-blue": "#213d6b",
+    "signal-orange": "#f45a3c",
+    "secure-white": "#f5f5f3"
+  },
+  "ramp": {
+    "black": {
+      "1": "#0d1016",
+      "2": "#24272c",
+      "3": "#494b50",
+      "4": "#85878a",
+      "5": "#efeff0"
+    },
+    "blue": {
+      "1": "#213d6b",
+      "2": "#365076",
+      "3": "#586d8d",
+      "4": "#8f9db3",
+      "5": "#c7ced9"
+    },
+    "orange": {
+      "1": "#f45a3c",
+      "2": "#f56a4f",
+      "3": "#f6836c",
+      "4": "#f9ac9d",
+      "5": "#fcd5ce"
+    }
+  },
+  "typography": {
+    "font-display": "\"Urbanist\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+    "font-body": "\"Sora\", system-ui, -apple-system, \"Segoe UI\", sans-serif",
+    "font-mono": "ui-monospace, \"SFMono-Regular\", \"Menlo\", \"Consolas\", monospace",
+    "text-xs": "0.75rem",
+    "text-sm": "0.875rem",
+    "text-base": "1rem",
+    "text-lg": "1.125rem",
+    "text-xl": "1.25rem",
+    "text-2xl": "1.5rem",
+    "text-3xl": "2rem",
+    "text-4xl": "2.5rem",
+    "text-5xl": "3.25rem",
+    "leading-tight": "1.15",
+    "leading-snug": "1.35",
+    "leading-normal": "1.6",
+    "tracking-wide": "0.18em",
+    "tracking-tight": "-0.01em",
+    "weight-regular": "400",
+    "weight-medium": "500",
+    "weight-semibold": "600",
+    "weight-bold": "700",
+    "text-muted": "#959799",
+    "text-subtle": "#85878a"
+  },
+  "space": {
+    "space-1": "0.25rem",
+    "space-2": "0.5rem",
+    "space-3": "0.75rem",
+    "space-4": "1rem",
+    "space-5": "1.5rem",
+    "space-6": "2rem",
+    "space-7": "3rem",
+    "space-8": "4rem"
+  },
+  "radius": {
+    "radius-sm": "3px",
+    "radius-md": "6px",
+    "radius-lg": "10px",
+    "radius-full": "999px"
+  },
+  "elevation": {
+    "shadow-sm": "0 1px 2px rgb(0 0 0 / 0.35)",
+    "shadow-md": "0 4px 12px rgb(0 0 0 / 0.4)",
+    "shadow-lg": "0 12px 32px rgb(0 0 0 / 0.45)"
+  },
+  "motion": {
+    "transition": "140ms ease"
+  },
+  "semantic": {
+    "dark": {
+      "bg": "#0d1016",
+      "surface": "#24272c",
+      "surface-raised": "#33353a",
+      "border": "#2f3237",
+      "border-strong": "#494b50",
+      "text": "#f5f5f3",
+      "accent": "#f45a3c",
+      "accent-text": "#f45a3c",
+      "accent-hover": "#f56a4f",
+      "accent-quiet": "#f6836c",
+      "on-accent": "#0d1016",
+      "focus": "#f45a3c",
+      "focus-width": "2px",
+      "focus-offset": "2px",
+      "link": "#f45a3c",
+      "blue-surface": "#213d6b",
+      "blue-surface-hover": "#365076",
+      "on-blue": "#f5f5f3",
+      "success": "#3fb950",
+      "info": "#58a6ff",
+      "warning": "#e3b341",
+      "error": "#ff6b63",
+      "on-status": "#0d1016"
+    },
+    "light": {
+      "bg": "#f5f5f3",
+      "surface": "#ffffff",
+      "surface-raised": "#ffffff",
+      "border": "#dcdcd7",
+      "border-strong": "#b8b8b3",
+      "text": "#0d1016",
+      "accent": "#f45a3c",
+      "accent-text": "#b7270a",
+      "accent-hover": "#cb2b0b",
+      "accent-quiet": "#f6836c",
+      "on-accent": "#0d1016",
+      "focus": "#b7270a",
+      "focus-width": "2px",
+      "focus-offset": "2px",
+      "link": "#b7270a",
+      "blue-surface": "#213d6b",
+      "blue-surface-hover": "#365076",
+      "on-blue": "#f5f5f3",
+      "success": "#1a7f37",
+      "info": "#0a5aa8",
+      "warning": "#8a6300",
+      "error": "#c1290b",
+      "on-status": "#f5f5f3"
+    }
+  },
+  "elevationLight": {
+    "shadow-sm": "0 1px 2px rgb(13 16 22 / 0.08)",
+    "shadow-md": "0 4px 12px rgb(13 16 22 / 0.1)",
+    "shadow-lg": "0 12px 32px rgb(13 16 22 / 0.12)"
+  }
+}

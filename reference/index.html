@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenax Solutions — Web Reference</title>
+<link rel="icon" href="../assets/favicon/favicon.svg">
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../assets/tokens/tenax.css">
+<style>
+  /* Page chrome only. Everything that demonstrates the brand uses tokens. */
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--tenax-space-5) var(--tenax-space-8); }
+
+  header.top {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--tenax-bg);
+    border-bottom: 1px solid var(--tenax-border);
+    padding: var(--tenax-space-4) var(--tenax-space-5);
+    display: flex; align-items: center; gap: var(--tenax-space-4);
+  }
+  header.top img { height: 30px; }
+  header.top .spacer { flex: 1; }
+
+  section { padding-top: var(--tenax-space-7); }
+  section > h2 {
+    font-size: var(--tenax-text-2xl);
+    padding-bottom: var(--tenax-space-2);
+    border-bottom: 1px solid var(--tenax-border);
+  }
+  .lede { color: var(--tenax-text-muted); max-width: 68ch; margin: 0 0 var(--tenax-space-5); }
+  h3 { font-size: var(--tenax-text-lg); margin-top: var(--tenax-space-6); }
+
+  .eyebrow {
+    font-family: var(--tenax-font-display);
+    font-size: var(--tenax-text-xs);
+    font-weight: var(--tenax-weight-bold);
+    letter-spacing: var(--tenax-tracking-wide);
+    text-transform: uppercase;
+    color: var(--tenax-text-muted);
+  }
+
+  .grid { display: grid; gap: var(--tenax-space-3); }
+  .cols-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .cols-5 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .cols-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+  .card {
+    background: var(--tenax-surface);
+    border: 1px solid var(--tenax-border);
+    border-radius: var(--tenax-radius-lg);
+    padding: var(--tenax-space-4);
+  }
+
+  /* --- swatches --- */
+  .swatch { border-radius: var(--tenax-radius-md); overflow: hidden; border: 1px solid var(--tenax-border); }
+  .swatch .chip { height: 92px; display: flex; align-items: flex-end; padding: var(--tenax-space-2); }
+  .swatch .meta { padding: var(--tenax-space-3); background: var(--tenax-surface); }
+  .swatch .name { font-weight: var(--tenax-weight-semibold); font-size: var(--tenax-text-sm); }
+  .swatch .hex { font-family: var(--tenax-font-mono); font-size: var(--tenax-text-xs); color: var(--tenax-text-muted); text-transform: uppercase; }
+  .ratio {
+    display: inline-block; margin-top: var(--tenax-space-2);
+    font-family: var(--tenax-font-mono); font-size: var(--tenax-text-xs);
+    padding: 2px 6px; border-radius: var(--tenax-radius-sm);
+    border: 1px solid var(--tenax-border-strong); color: var(--tenax-text-muted);
+  }
+  .ratio.pass { color: var(--tenax-success); border-color: var(--tenax-success); }
+  .ratio.large { color: var(--tenax-warning); border-color: var(--tenax-warning); }
+  .ratio.fail { color: var(--tenax-error); border-color: var(--tenax-error); }
+
+  .ramp { display: flex; border-radius: var(--tenax-radius-md); overflow: hidden; border: 1px solid var(--tenax-border); }
+  .ramp div { flex: 1; height: 56px; display: flex; align-items: center; justify-content: center;
+              font-family: var(--tenax-font-mono); font-size: 10px; }
+
+  /* --- components --- */
+  .btn {
+    font-family: var(--tenax-font-display);
+    font-weight: var(--tenax-weight-bold);
+    font-size: var(--tenax-text-sm);
+    letter-spacing: var(--tenax-tracking-wide);
+    text-transform: uppercase;
+    padding: var(--tenax-space-3) var(--tenax-space-5);
+    border-radius: var(--tenax-radius-md);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background var(--tenax-transition), border-color var(--tenax-transition);
+  }
+  .btn-primary { background: var(--tenax-text); color: var(--tenax-bg); }
+  .btn-primary:hover { background: var(--tenax-text-muted); }
+  .btn-secondary { background: var(--tenax-blue-surface); color: var(--tenax-on-blue); }
+  .btn-secondary:hover { background: var(--tenax-blue-surface-hover); }
+  .btn-ghost { background: transparent; color: var(--tenax-text); border-color: var(--tenax-border-strong); }
+  .btn-ghost:hover { border-color: var(--tenax-text-muted); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  label.field { display: block; margin-bottom: var(--tenax-space-4); }
+  label.field .lbl { display: block; font-size: var(--tenax-text-sm); color: var(--tenax-text-muted); margin-bottom: var(--tenax-space-2); }
+  input[type=text], select {
+    width: 100%; font-family: var(--tenax-font-body); font-size: var(--tenax-text-base);
+    background: var(--tenax-bg); color: var(--tenax-text);
+    border: 1px solid var(--tenax-border-strong); border-radius: var(--tenax-radius-md);
+    padding: var(--tenax-space-3);
+  }
+  .err-text { color: var(--tenax-error); font-size: var(--tenax-text-sm); margin-top: var(--tenax-space-2); }
+
+  nav.demo { display: flex; gap: var(--tenax-space-5); border-bottom: 1px solid var(--tenax-border); }
+  nav.demo a {
+    padding: var(--tenax-space-3) 0; text-decoration: none; color: var(--tenax-text-muted);
+    font-size: var(--tenax-text-sm); border-bottom: 2px solid transparent;
+  }
+  nav.demo a.active { color: var(--tenax-accent-text); border-bottom-color: var(--tenax-accent); }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--tenax-font-display); font-weight: var(--tenax-weight-bold);
+    font-size: var(--tenax-text-xs); letter-spacing: .06em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: var(--tenax-radius-full);
+    color: var(--tenax-on-status);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: var(--tenax-text-sm); }
+  th {
+    text-align: left; font-family: var(--tenax-font-display);
+    font-size: var(--tenax-text-xs); letter-spacing: var(--tenax-tracking-wide);
+    text-transform: uppercase; color: var(--tenax-text-muted);
+    padding: var(--tenax-space-3); border-bottom: 1px solid var(--tenax-border-strong);
+  }
+  td { padding: var(--tenax-space-3); border-bottom: 1px solid var(--tenax-border); }
+  td.sev { border-left: 3px solid transparent; }
+
+  .logo-tile {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 120px; padding: var(--tenax-space-5);
+    border-radius: var(--tenax-radius-md); border: 1px solid var(--tenax-border);
+  }
+  .logo-tile img { max-width: 100%; max-height: 64px; }
+  .caption { font-family: var(--tenax-font-mono); font-size: var(--tenax-text-xs); color: var(--tenax-text-muted); margin-top: var(--tenax-space-2); }
+
+  .rule-good, .rule-bad {
+    border-left: 3px solid; padding: var(--tenax-space-3) var(--tenax-space-4);
+    border-radius: 0 var(--tenax-radius-md) var(--tenax-radius-md) 0;
+    background: var(--tenax-surface); margin-bottom: var(--tenax-space-3);
+  }
+  .rule-good { border-color: var(--tenax-success); }
+  .rule-bad  { border-color: var(--tenax-error); }
+  .rule-good b, .rule-bad b { font-family: var(--tenax-font-display); }
+
+  mark { background: none; color: var(--tenax-accent-text); font-weight: var(--tenax-weight-semibold); }
+  code { font-family: var(--tenax-font-mono); font-size: .9em; color: var(--tenax-text-muted); }
+</style>
+</head>
+<body class="tenax">
+
+<header class="top">
+  <img src="../assets/logos/primary-inverse.svg" alt="Tenax Solutions" id="hdr-logo">
+  <span class="eyebrow">Web Reference</span>
+  <span class="spacer"></span>
+  <button class="btn btn-ghost" id="theme-toggle">Light mode</button>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2>What this page is</h2>
+  <p class="lede">
+    The live counterpart to <code>brand-guide.md</code>. Everything below is rendered from
+    <code>assets/tokens/tenax.css</code> and the self-hosted fonts — so if a token changes,
+    this page changes with it. Contrast ratios are computed in the browser from the
+    <em>actual</em> resolved values, not copied from a spreadsheet.
+  </p>
+</section>
+
+<section>
+  <h2>Palette</h2>
+  <p class="lede">
+    Four named colours from the identity guide. Ratios shown are against the current
+    theme's page background.
+  </p>
+  <div class="grid cols-4" id="brand-swatches"></div>
+
+  <h3>Tint ramps</h3>
+  <p class="lede">Sampled from the guide's palette page. These supply surfaces, borders and muted text — so apps don't invent their own greys.</p>
+  <div id="ramps"></div>
+</section>
+
+<section>
+  <h2>Typography</h2>
+  <p class="lede">
+    <strong>Urbanist</strong> for display, <strong>Sora</strong> for body and UI. Both are
+    self-hosted variable fonts — no Typekit, no network dependency, ~80&nbsp;KB total.
+  </p>
+  <div class="grid cols-2">
+    <div class="card">
+      <span class="eyebrow">Urbanist — display</span>
+      <p style="font-family:var(--tenax-font-display);font-size:var(--tenax-text-4xl);font-weight:700;line-height:1.1;margin:.4em 0">
+        Stay ahead of evolving threats
+      </p>
+      <p style="font-family:var(--tenax-font-display);font-weight:400;margin:0;color:var(--tenax-text-muted)">
+        Regular 400 · Medium 500 · Semibold 600 · Bold 700
+      </p>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Sora — body</span>
+      <p style="margin:.6em 0 0">
+        Tenax Solutions' imagery combines technology, architecture, data, and authentic
+        collaboration to communicate confidence and capability. Visuals should emphasize
+        innovation, resilience, and <mark>proactive security</mark> rather than reactive
+        problem-solving.
+      </p>
+    </div>
+  </div>
+
+  <h3>Scale</h3>
+  <div class="card" id="type-scale"></div>
+</section>
+
+<section>
+  <h2>Logo</h2>
+  <p class="lede">
+    Four lockups × four colour variants. <b>Inverse</b> is the default on dark surfaces,
+    <b>Color</b> on light. <b>Black</b> and <b>White</b> are single-colour variants for
+    constrained reproduction — they drop the orange dot.
+  </p>
+  <div id="logo-matrix"></div>
+</section>
+
+<section>
+  <h2>Signal Orange — the accent rule</h2>
+  <p class="lede">
+    Orange is the identity's only accent and it is <strong>not</strong> a status colour.
+    It marks brand and navigational emphasis: individual words, icons, active indicators,
+    focus rings, small rules.
+  </p>
+
+  <div class="rule-good">
+    <b>Do</b> — use orange as text, icons and rules:
+    threat activity <mark>increased 34%</mark> across monitored endpoints.
+  </div>
+  <div class="rule-bad">
+    <b>Don't</b> — use orange as a large fill, or to mean "high severity". Severity is
+    carried by filled badges; orange is never one of them.
+  </div>
+
+  <h3>Why hue alone can't separate them</h3>
+  <p class="lede">
+    Signal Orange sits at hue 10°. Every accessible red lands within ~12° of it, so brand
+    orange and error red cannot be told apart by colour. They are separated by
+    <em>form</em> instead: orange is never filled, status is always filled.
+  </p>
+  <div class="card">
+    <p style="margin:0 0 var(--tenax-space-4)">
+      Inline orange next to filled status badges — different shapes, no ambiguity:
+      the scan found <mark>3 new hosts</mark> and flagged the following.
+    </p>
+    <div style="display:flex;gap:var(--tenax-space-3);flex-wrap:wrap" id="badges"></div>
+  </div>
+
+  <h3>In a severity table</h3>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table id="sev-table"></table>
+  </div>
+</section>
+
+<section>
+  <h2>Components</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <span class="eyebrow">Buttons</span>
+      <p class="lede" style="font-size:var(--tenax-text-sm);margin:var(--tenax-space-3) 0">
+        Primary is a light fill, not orange — orange is reserved as an accent, and white
+        text on orange fails contrast at 3.02:1.
+        <em>Provisional pending the homepage mockup.</em>
+      </p>
+      <div style="display:flex;gap:var(--tenax-space-3);flex-wrap:wrap;align-items:center">
+        <button class="btn btn-primary">Run scan</button>
+        <button class="btn btn-secondary">Export</button>
+        <button class="btn btn-ghost">Cancel</button>
+        <button class="btn btn-ghost" disabled>Disabled</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="eyebrow">Navigation</span>
+      <nav class="demo" style="margin-top:var(--tenax-space-3)">
+        <a href="#" class="active">Overview</a>
+        <a href="#">Endpoints</a>
+        <a href="#">Alerts</a>
+        <a href="#">Reports</a>
+      </nav>
+      <p class="caption">Active item: orange text + orange underline. No fill.</p>
+    </div>
+
+    <div class="card">
+      <span class="eyebrow">Forms</span>
+      <div style="margin-top:var(--tenax-space-3)">
+        <label class="field">
+          <span class="lbl">Agent name</span>
+          <input type="text" value="dc-01.corp.local">
+        </label>
+        <label class="field" style="margin-bottom:0">
+          <span class="lbl">Group</span>
+          <input type="text" value="" placeholder="Required">
+          <div class="err-text">Select a group before saving.</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="eyebrow">Sentinel Blue</span>
+      <p class="lede" style="font-size:var(--tenax-text-sm);margin:var(--tenax-space-3) 0">
+        Blue on Command Black is <strong>1.76:1</strong> — invisible. It only works as a
+        filled field carrying light text.
+      </p>
+      <div style="background:var(--tenax-blue-surface);color:var(--tenax-on-blue);padding:var(--tenax-space-5);border-radius:var(--tenax-radius-md)">
+        <strong style="font-family:var(--tenax-font-display)">Blue is a surface.</strong>
+        <div style="opacity:.9;font-size:var(--tenax-text-sm);margin-top:6px">Secure White on Sentinel Blue — 9.89:1.</div>
+      </div>
+      <p style="color:var(--tenax-sentinel-blue);margin-top:var(--tenax-space-3);font-size:var(--tenax-text-sm)">
+        This sentence is Sentinel Blue as body text. It is unreadable, on purpose.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Adopting this in an app</h2>
+  <div class="card">
+    <ol style="margin:0;padding-left:1.2em;line-height:1.9">
+      <li>Copy <code>assets/tokens/tenax.css</code> and <code>assets/fonts/</code> into your app.</li>
+      <li>Link both; add <code>class="tenax"</code> to <code>&lt;body&gt;</code> for the base layer.</li>
+      <li>Copy <code>assets/favicon/</code> to your web root and link <code>favicon.svg</code> + <code>favicon.ico</code>.</li>
+      <li>Pick one logo from <code>assets/logos/</code> — <code>*-inverse.svg</code> on dark.</li>
+      <li>Build with <code>var(--tenax-*)</code> only. Run <code>tools/check-contrast.py</code> if you add colours.</li>
+    </ol>
+  </div>
+</section>
+
+</div>
+
+<script>
+/* Read the live resolved value of a token, so this page can never disagree
+   with assets/tokens/tenax.css. */
+const tok = n => getComputedStyle(document.documentElement)
+                   .getPropertyValue('--tenax-' + n).trim();
+
+/* ---- contrast maths, same formula as tools/check-contrast.py ---- */
+function lum(hex) {
+  hex = hex.replace('#','');
+  if (hex.length === 3) hex = [...hex].map(c => c+c).join('');
+  const [r,g,b] = [0,2,4].map(i => {
+    const c = parseInt(hex.substr(i,2),16)/255;
+    return c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+  });
+  return 0.2126*r + 0.7152*g + 0.0722*b;
+}
+const ratio = (a,b) => {
+  const x = lum(a), y = lum(b);
+  return (Math.max(x,y) + 0.05) / (Math.min(x,y) + 0.05);
+};
+function ratioTag(label, fg, bg) {
+  const r = ratio(fg, bg);
+  const cls  = r >= 4.5 ? 'pass' : r >= 3 ? 'large' : 'fail';
+  const note = r >= 4.5 ? 'AA'   : r >= 3 ? 'AA large' : 'fail';
+  return `<span class="ratio ${cls}">${label} ${r.toFixed(2)}:1 ${note}</span>`;
+}
+
+/* Each brand colour has two possible jobs, and most are only good at one of
+   them. Showing a single number against the page background would score the
+   page background itself at 1.00:1, which says nothing. */
+function roleTags(hex) {
+  return ratioTag('as text', hex, tok('bg')) + ' ' +
+         ratioTag('as surface', tok('text'), hex);
+}
+
+const BRAND = [
+  ['Command Black','command-black','Foundation. Page background, and the tile behind the favicon.'],
+  ['Sentinel Blue','sentinel-blue','Surface only — never a foreground on dark.'],
+  ['Signal Orange','signal-orange','The single accent. Text, icons, rules — never a large fill.'],
+  ['Secure White','secure-white','Primary text on dark; page background in light mode.'],
+];
+const SCALE = [['5xl','Display'],['4xl','Page title'],['3xl','Section'],['2xl','Subsection'],
+               ['xl','Card title'],['lg','Lead'],['base','Body'],['sm','Secondary'],['xs','Label']];
+const LOCKUPS = ['primary','secondary','submark','icon'];
+const STATUS = [['success','Resolved'],['info','Informational'],['warning','Medium'],['error','Critical']];
+const ROWS = [
+  ['error','Critical','Privilege escalation attempt','dc-01.corp.local','2 min ago'],
+  ['warning','Medium','Repeated failed authentication','vpn-gw-02','14 min ago'],
+  ['info','Informational','New agent registered','ws-4471','1 hr ago'],
+  ['success','Resolved','Malware quarantined','ws-1180','3 hr ago'],
+];
+
+function render() {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+  document.getElementById('brand-swatches').innerHTML = BRAND.map(([name,key,desc]) => {
+    const hex = tok(key);
+    return `<div class="swatch">
+      <div class="chip" style="background:${hex}"></div>
+      <div class="meta">
+        <div class="name">${name}</div>
+        <div class="hex">${hex}</div>
+        <div style="font-size:var(--tenax-text-xs);color:var(--tenax-text-muted);margin-top:6px">${desc}</div>
+        ${roleTags(hex)}
+      </div></div>`;
+  }).join('');
+
+  document.getElementById('ramps').innerHTML = ['black','blue','orange'].map(fam => {
+    const steps = [1,2,3,4,5].map(i => {
+      const hex = tok(`${fam}-${i}`);
+      const fg = lum(hex) > 0.35 ? '#0d1016' : '#f5f5f3';
+      return `<div style="background:${hex};color:${fg}">${hex.toUpperCase()}</div>`;
+    }).join('');
+    return `<div style="margin-bottom:var(--tenax-space-4)">
+      <div class="eyebrow" style="margin-bottom:6px">${fam}</div>
+      <div class="ramp">${steps}</div></div>`;
+  }).join('');
+
+  document.getElementById('type-scale').innerHTML = SCALE.map(([k,use]) => {
+    const display = ['5xl','4xl','3xl','2xl','xl'].includes(k);
+    return `<div style="display:flex;align-items:baseline;gap:var(--tenax-space-4);padding:var(--tenax-space-2) 0;border-bottom:1px solid var(--tenax-border)">
+      <code style="min-width:9ch">${k}</code>
+      <code style="min-width:7ch">${tok('text-'+k)}</code>
+      <span style="font-size:var(--tenax-text-${k});font-family:var(${display?'--tenax-font-display':'--tenax-font-body'});font-weight:${display?700:400};line-height:1.2">${use}</span>
+    </div>`;
+  }).join('');
+
+  const on = [
+    ['color',   tok('secure-white'),  'on Secure White'],
+    ['inverse', tok('command-black'), 'on Command Black'],
+    ['white',   tok('sentinel-blue'), 'on Sentinel Blue'],
+    ['black',   tok('black-5'),       'on a light grey'],
+  ];
+  document.getElementById('logo-matrix').innerHTML = LOCKUPS.map(l => `
+    <h3 style="text-transform:capitalize">${l}</h3>
+    <div class="grid cols-4">
+      ${on.map(([v,tileBg,label]) => `<div>
+        <div class="logo-tile" style="background:${tileBg}">
+          <img src="../assets/logos/${l}-${v}.svg" alt="${l} ${v} lockup">
+        </div>
+        <div class="caption">${l}-${v}.svg — ${label}</div>
+      </div>`).join('')}
+    </div>`).join('');
+
+  document.getElementById('badges').innerHTML = STATUS.map(([k,label]) =>
+    `<span class="badge" style="background:var(--tenax-${k})">${label}</span>`).join('');
+
+  document.getElementById('sev-table').innerHTML =
+    `<thead><tr><th>Severity</th><th>Event</th><th>Host</th><th>Seen</th></tr></thead><tbody>` +
+    ROWS.map(([k,label,event,host,seen]) => `<tr>
+      <td class="sev" style="border-left-color:var(--tenax-${k})">
+        <span class="badge" style="background:var(--tenax-${k})">${label}</span></td>
+      <td>${event}</td>
+      <td><code>${host}</code></td>
+      <td style="color:var(--tenax-text-muted)">${seen}</td>
+    </tr>`).join('') + `</tbody>`;
+
+  document.getElementById('hdr-logo').src =
+    `../assets/logos/primary-${isLight ? 'color' : 'inverse'}.svg`;
+  document.getElementById('theme-toggle').textContent = isLight ? 'Dark mode' : 'Light mode';
+}
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
