@@ -7,15 +7,18 @@ SecureOps logos, icons, and configuration. Must be re-run after every Wazuh
 Dashboard upgrade since upgrades overwrite the modified files.
 
 > The dashboard server does **not** pull this repo — its files are **copied over
-> manually**. The script itself is unchanged from prior versions; only the repo
-> layout and docs moved.
+> manually**.
+
+Branding is the 2026 Tenax Solutions identity; see [`brand-guide.md`](../../brand-guide.md).
+The logos in `logos/` are **generated** from the repo's `assets/` by
+`tools/sync-app-assets.py` — regenerate rather than editing them in place.
 
 ## What the Script Does
 
 1. **Replaces 16 logo SVGs** across light/dark theme variants (login screen,
    header, spinners, marks, watermarks)
 2. **Replaces 2 OpenSearch branding marks** (default and dark mode)
-3. **Replaces the favicon** with the Tenax icon
+3. **Replaces the favicon** and the full 12-file icon set
 4. **Hides the Help menu** button from the dashboard header (CSS patch on
    compiled bundles)
 5. **Removes the About page** from the Dashboard Management sidebar
@@ -71,10 +74,10 @@ sudo bash /root/siem-whitelabel/apply-whitelabel.sh
 [INFO]  Backup complete
 [INFO]
 [INFO]  Replacing logo files...
-[INFO]  Replaced 3/3 files with tenax_ipp_main_logo_black.svg
-[INFO]  Replaced 2/2 files with tenax_ipp_main_logo_white.svg
-[INFO]  Replaced 7/7 files with tenax_icon_black_tight_80.svg
-[INFO]  Replaced 4/4 files with tenax_icon_white_tight_80.svg
+[INFO]  Replaced 3/3 files with tenax_logo_on_light.svg
+[INFO]  Replaced 2/2 files with tenax_logo_on_dark.svg
+[INFO]  Replaced 7/7 files with tenax_icon_on_light.svg
+[INFO]  Replaced 4/4 files with tenax_icon_on_dark.svg
 [INFO]
 [INFO]  Replacing default branding marks...
 [INFO]    Replaced opensearch_mark_default_mode.svg
@@ -82,6 +85,7 @@ sudo bash /root/siem-whitelabel/apply-whitelabel.sh
 [INFO]
 [INFO]  Replacing favicons...
 [INFO]    Replaced favicon.ico with tenax_favicon.ico
+[INFO]    Replaced 12/12 favicon files from favicons/
 [INFO]
 [INFO]  Patching UI bundles...
 [INFO]    [OK] core.entry.js
@@ -90,13 +94,13 @@ sudo bash /root/siem-whitelabel/apply-whitelabel.sh
 [INFO]
 [INFO]  Checking configuration files...
 [INFO]    [OK] opensearchDashboards branding block already present
-[INFO]    [OK] opensearch_security.ui.basicauth.login.showbrandimage already present
-[INFO]    [OK] opensearch_security.ui.basicauth.login.brandimage already present
-[INFO]    [OK] customization.logo.app already present
-[INFO]    [OK] customization.logo.healthcheck already present
-[INFO]    [OK] customization.logo.reports already present
-[INFO]    [OK] customization.reports.footer already present
-[INFO]    [OK] customization.reports.header already present
+[INFO]    [OK] opensearch_security.ui.basicauth.login.showbrandimage already correct
+[INFO]    [OK] opensearch_security.ui.basicauth.login.brandimage already correct
+[INFO]    [OK] customization.logo.app already correct
+[INFO]    [OK] customization.logo.healthcheck already correct
+[INFO]    [OK] customization.logo.reports already correct
+[INFO]    [OK] customization.reports.footer already correct
+[INFO]    [OK] customization.reports.header already correct
 [INFO]
 [INFO]  Restarting wazuh-dashboard service...
 [INFO]  Service restarted successfully
@@ -134,17 +138,19 @@ sudo systemctl restart wazuh-dashboard
 
 ## Logo Source Files
 
-Located in the `logos/` directory of this repo. These are renamed from the
-marketing originals for filesystem compatibility.
+Located in `logos/`, generated from the repo's `assets/` by
+`tools/sync-app-assets.py`. Filenames describe the **background** a mark goes on,
+not its ink colour.
 
-| Marketing Original             | Repo Filename                        | Used For                     |
-|--------------------------------|--------------------------------------|------------------------------|
-| TENAX IPP MAIN LOGO_BLACK.SVG | `tenax_ipp_main_logo_black.svg`      | Light theme logos             |
-| TENAX IPP MAIN LOGO_BLACK.PNG | `tenax_ipp_main_logo_black.png`      | PDF report logos              |
-| TENAX IPP MAIN LOGO_WHITE.SVG | `tenax_ipp_main_logo_white.svg`      | Dark theme logos              |
-| TENAX_ICON_BLACK_TIGHT_80     | `tenax_icon_black_tight_80.svg`      | Light theme icons/marks       |
-| TENAX_ICON_WHITE_TIGHT_80     | `tenax_icon_white_tight_80.svg`      | Dark theme icons/marks        |
-| TENAX_FAVICON.ICO             | `tenax_favicon.ico`                  | Browser tab favicon           |
+| Brand asset                     | Repo filename              | Used for                |
+|---------------------------------|----------------------------|-------------------------|
+| `logos/primary-color.svg`       | `tenax_logo_on_light.svg`  | Light theme logos       |
+| `logos/primary-inverse.svg`     | `tenax_logo_on_dark.svg`   | Dark theme logos        |
+| `logos/icon-color.svg`          | `tenax_icon_on_light.svg`  | Light theme icons/marks |
+| `logos/icon-inverse.svg`        | `tenax_icon_on_dark.svg`   | Dark theme icons/marks  |
+| `raster/primary-color-960w.png` | `tenax_logo_on_light.png`  | PDF report logos        |
+| `favicon/favicon.ico`           | `tenax_favicon.ico`        | Browser tab favicon     |
+| `favicon/*`                     | `favicons/`                | Full 12-file icon set   |
 
 See [WHITELABEL.md](WHITELABEL.md) for the complete file-by-file replacement map
 and configuration reference.
