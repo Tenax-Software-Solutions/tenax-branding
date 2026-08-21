@@ -83,7 +83,20 @@ we're doing now.
 - **Primary JPG is incomplete.** Only `Black-50` shipped; Secondary and Submark each got
   four (`Black-50/80`, `Color-50/80`).
 
-## 7. Specifications the "Lite" guide doesn't cover
+## 7. The IP Pathways partner mark
+
+The approved homepage has a "Stronger Together" section carrying the standalone
+**IP Pathways** wordmark, but no IP Pathways asset shipped in the logo package.
+
+We have the retired `TENAX IPP MAIN LOGO` lockup in our archive, but that combined both
+brands into a single wordmark and is not the same thing — the site shows IP Pathways as a
+separate partner mark alongside the Tenax logo.
+
+**Requested:** the standalone IP Pathways logo (SVG + PNG, light and dark variants), plus
+guidance on the co-branding lockup — relative sizing, spacing, and whether the pairing is
+approved for product surfaces or marketing only.
+
+## 8. Specifications the "Lite" guide doesn't cover
 
 Not defects — scope. Flagging them because product work needs answers, and we've had to
 choose defaults:
@@ -95,9 +108,15 @@ choose defaults:
 - **Status/severity colours.** The guide has no success/warning/error palette. We defined
   one, constrained by the finding that *no accessible red is distinguishable by hue from
   Signal Orange* — every candidate lands within 7–12° of it. See `brand-guide.md`.
-- **How far Signal Orange goes in UI.** Marketing's guidance is accent-only (word
-  highlights, icons). Confirmation against the homepage mockup would let us finalise
-  primary button colour, which is currently provisional.
+- **The primary-action gradient.** The homepage uses a `90deg` gradient from `#213D6B`
+  (Sentinel Blue, exactly) to `#C24830` for every CTA. Measured off the design and
+  cross-checked on three buttons, which agreed.
+
+  The end stop is **not** Signal Orange, and that appears deliberate: at `#C24830` a white
+  label clears AA across the whole ramp (worst 4.93:1), whereas ending at `#F45A3C` would
+  drop to 3.29:1 and fail. **Please confirm `#C24830` is the intended stop** so we can
+  treat it as canonical rather than as a value we reverse-engineered — it is currently the
+  only colour in our token set that is not from the identity palette.
 
 ---
 

@@ -108,9 +108,12 @@
   /* ---------------------------------------------------------------------
      Semantic — DARK (default)
      --------------------------------------------------------------------- */
+  /* Sampled from the approved homepage design: page #0D1015, card fill #171A20,
+     input fill #23262B. The card elevation is subtler than a straight jump to
+     black-2; inputs and nested boxes sit at roughly black-2. */
   --tenax-bg: #0d1016;
-  --tenax-surface: #24272c;
-  --tenax-surface-raised: #33353a;
+  --tenax-surface: #171a20;
+  --tenax-surface-raised: #23262b;
 
   /* Two border weights: a hairline that separates without drawing attention,
      and a strong one for deliberate dividers. */
@@ -130,19 +133,22 @@
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016; /* dark text on an orange fill; white fails at 3.02:1 */
 
-  /* Primary actions are a Sentinel Blue -> Signal Orange gradient pill. This is
-     not in the identity PDF; it comes from the approved homepage design, which
-     uses it for every primary CTA, the active tab chip and inline "Learn more"
-     actions. It is the one place the two brand colours meet.
+  /* Primary actions are a horizontal gradient pill. Not in the identity PDF --
+     it comes from the approved homepage design, which uses it for every primary
+     CTA, the form submit and the active tab chip.
 
-     A white label clears 4.5:1 across roughly the first three quarters of the
-     ramp and reaches 3.29:1 only at the pure-orange end. Centred labels sit over
-     the compliant region; a label long enough to reach the right edge does not,
-     so keep primary button text short. --tenax-on-accent-gradient-safe is the
-     dark alternative if a long label is unavoidable. */
-  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #f45a3c);
+     Stops measured off the design at full resolution and cross-checked on three
+     buttons of different widths, which agreed: start #213D6B (Sentinel Blue,
+     exactly), end #C24830, angle 90deg with zero vertical variation.
+
+     Note the end is NOT Signal Orange -- it is deeper. That matters: a white
+     label clears 4.5:1 across the entire ramp (worst point 4.93:1 at the end),
+     where ending at Signal Orange would have dropped to 3.29:1 and failed. The
+     darkening looks deliberate; treat it as load-bearing, not a rounding error. */
+  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #c24830);
+  --tenax-accent-gradient-start: #213d6b;
+  --tenax-accent-gradient-end: #c24830;
   --tenax-on-accent-gradient: #ffffff;
-  --tenax-on-accent-gradient-safe: #0d1016;
 
   --tenax-focus: #f45a3c;
   --tenax-focus-width: 2px;
@@ -190,9 +196,10 @@
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016;
 
-  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #f45a3c);
+  --tenax-accent-gradient: linear-gradient(90deg, #213d6b, #c24830);
+  --tenax-accent-gradient-start: #213d6b;
+  --tenax-accent-gradient-end: #c24830;
   --tenax-on-accent-gradient: #ffffff;
-  --tenax-on-accent-gradient-safe: #0d1016;
 
   --tenax-focus: #b7270a;
   --tenax-link: #b7270a;

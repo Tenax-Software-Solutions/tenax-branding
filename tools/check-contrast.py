@@ -109,9 +109,13 @@ def check_gradient(css: str) -> int:
     mid = ratios[0.5]
     ok = mid >= AA_NORMAL
     print(f"  midpoint (where a centred label sits): {mid:.2f}:1  {'ok' if ok else 'FAIL'}")
-    print(f"  clears AA up to {edge:.0%} along the ramp; worst point {ratios[1.0]:.2f}:1 at the orange end")
-    if ratios[1.0] < AA_LARGE:
-        print("  WARNING: the orange end is below 3:1 even for large text")
+    worst = min(ratios.values())
+    if worst >= AA_NORMAL:
+        print(f"  worst point {worst:.2f}:1 — the whole ramp clears AA, labels can be any length")
+        return 0 if ok else 1
+    print(f"  clears AA up to {edge:.0%} along the ramp; worst point {worst:.2f}:1")
+    if worst < AA_LARGE:
+        print("  WARNING: part of the ramp is below 3:1 even for large text")
         return 1
     print("  keep primary button labels short so they stay inside the passing region")
     return 0 if ok else 1

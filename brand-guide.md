@@ -106,23 +106,25 @@ table entirely.
 
 ### Primary actions: the blue → orange gradient
 
-`--tenax-accent-gradient` — `linear-gradient(90deg, #213D6B, #F45A3C)`.
+`--tenax-accent-gradient` — `linear-gradient(90deg, #213D6B, #C24830)`.
 
 This is **not in the identity PDF**. It comes from the approved homepage design, which
-uses it for every primary CTA ("Explore Services", "Learn More", "View All Services") and
-for the active tab chip. It is the one place the two brand colours meet, and it is the
+uses it for every primary CTA, the contact-form submit and the active tab chip. It is the
 only sanctioned orange fill.
 
-- Primary action: gradient fill, **pill** (`--tenax-radius-full`), white label,
-  sentence case.
+Stops were measured off the design at full resolution and cross-checked on three buttons
+of different widths, which agreed: start `#213D6B` — Sentinel Blue exactly — end
+`#C24830`, angle `90deg` with zero vertical variation.
+
+- Primary action: gradient fill, **pill** (`--tenax-radius-full`), white label, sentence case.
 - Secondary action: ghost pill — transparent, `--tenax-border-strong`, `--tenax-text` label.
 - Never use solid `--tenax-accent` as a button fill.
 
-**Label contrast.** A white label clears 4.5:1 across the first ~70% of the ramp and falls
-to 3.29:1 at the pure-orange end. Centred labels sit over the compliant region, so keep
-primary button text short; if a long label is unavoidable, switch to
-`--tenax-on-accent-gradient-safe` (Command Black, 5.78:1 at the worst point).
-`tools/check-contrast.py` samples the gradient and reports where the threshold falls.
+**The end stop is deeper than Signal Orange, and that is load-bearing.** A white label
+clears 4.5:1 across the entire ramp, worst point **4.93:1**. Had the gradient ended at
+Signal Orange `#F45A3C` it would have fallen to 3.29:1 and failed AA. Do not "correct" the
+end stop to the brand orange — it would break the button's accessibility.
+`tools/check-contrast.py` samples along the gradient and will catch it if someone does.
 
 ### Status colours
 
@@ -155,10 +157,17 @@ silently fails to load takes the brand's typography with it.
 The identity guide specifies no monospace face. The system stack is used for log and
 code output; if marketing wants a specified mono, that's an open request.
 
-**Case and tracking.** The wordmark sets SOLUTIONS with wide letterspacing, but the
-homepage design does *not* carry that into UI text: buttons, eyebrow chips and labels are
-all **sentence case**. Reserve `--tenax-tracking-wide` (`0.18em`) for dense-data table
-headers, where it aids scanning. Never on body copy, buttons or chips.
+**Case.** The design splits these deliberately:
+
+| | Case | Example |
+|---|---|---|
+| Buttons, nav, eyebrow chips, form labels | sentence case | "Explore Services", "Why Tenax?" |
+| Content-type / category kickers | **UPPERCASE**, orange, tracked, with an orange icon | "CASE STUDY", "ARTICLE", "EVENT" |
+| Headings | sentence case | "Insights Backed by *Experience*." |
+
+So uppercase is not banned — it is reserved for category kickers, where it pairs with
+`--tenax-accent` and an icon. Use `--tenax-tracking-wide` there and on dense-data table
+headers. Never on body copy, buttons or chips.
 
 Type scale: `--tenax-text-xs` `0.75rem` → `--tenax-text-5xl` `3.25rem`; see
 `reference/index.html` for the rendered scale.
@@ -306,10 +315,38 @@ message that Tenax helps organisations stay ahead of evolving threats.
 
 From the homepage design:
 
-- Buttons, chips and eyebrow labels are **pills** — `--tenax-radius-full`.
+- Buttons, chips, eyebrow labels and **form inputs** are heavily rounded — pills
+  (`--tenax-radius-full`) on the marketing site. Dense app forms may drop to
+  `--tenax-radius-md`; a pill-shaped filter box in a SIEM table reads oddly.
 - Cards and panels use `--tenax-radius-xl` (16px).
 - The hero carries a subtle orange particle texture over Command Black. Decorative only;
   it must never sit behind body copy.
+
+### Surfaces, as measured
+
+| Token | Value | Where it came from |
+|-------|-------|--------------------|
+| `--tenax-bg` | `#0D1016` | page background and footer band |
+| `--tenax-surface` | `#171A20` | service cards, nav pill, eyebrow chips |
+| `--tenax-surface-raised` | `#23262B` | form inputs, nested label boxes |
+
+Card elevation is subtler than a straight jump to `black-2`; inputs sit at roughly
+`black-2`.
+
+---
+
+## IP Pathways co-branding
+
+The homepage carries a **"Stronger Together"** section: *"Tenax Solutions is proud to be
+part of IP Pathways."* The standalone **IP Pathways** wordmark appears there on a raised
+panel.
+
+This is a **partner mark, not part of the Tenax identity**. It is a different asset from
+the retired `TENAX IPP MAIN LOGO` lockup in `archive/ipp-2025/`, which combined both
+brands into one wordmark and is no longer used.
+
+The repo does not currently hold a standalone IP Pathways logo — see `ASSET-REQUESTS.md`.
+Never reconstruct it from the archived combined lockup.
 
 ---
 
