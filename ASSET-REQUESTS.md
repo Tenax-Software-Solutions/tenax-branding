@@ -96,6 +96,26 @@ separate partner mark alongside the Tenax logo.
 guidance on the co-branding lockup — relative sizing, spacing, and whether the pairing is
 approved for product surfaces or marketing only.
 
+### The accompanying copy is factually wrong — please correct before launch
+
+**IP Pathways is a Tenax Solutions partner. It is not the parent company.** The homepage
+copy states otherwise in both variants:
+
+- **V3 body:** "Tenax Solutions is proud to be **part of** IP Pathways"
+- **V1 footer:** "Tenax Solutions, **an IP Pathways company**"
+- **V1 news card:** "IP Pathways **Acquires** Tenax Solutions"
+
+V3 also contradicts itself — the section eyebrow reads "IP Pathways **Partnership**" while
+the body beneath it says Tenax is part of IP Pathways.
+
+This is a claim about corporate structure rather than a matter of tone, so it needs
+correcting regardless of which variant is chosen. The visual treatment is fine as designed.
+
+### Also spotted in V1
+
+- **Typo:** "CyberSecurity Summit **20226**" (V3 has 2026 correctly).
+- **Inconsistent capitalisation:** V1 uses "CyberSecurity", V3 uses "Cybersecurity".
+
 ## 8. Specifications the "Lite" guide doesn't cover
 
 Not defects — scope. Flagging them because product work needs answers, and we've had to
