@@ -12,6 +12,15 @@ it is still what several live surfaces render:
 | SIEM / Wazuh dashboard | Migrated — see `applications/siem-whitelabel/` |
 | On-call app, training course | Separate repos; each vendored its own copy of these assets and migrates independently |
 
+## Do not revive this for IP Pathways co-branding
+
+The `TENAX IPP MAIN LOGO` files here fuse Tenax and IP Pathways into a **single
+wordmark**, from a period when the relationship was structured differently.
+
+**IP Pathways is now a Tenax partner, not the parent company.** Current co-branding pairs
+the standalone Tenax and IP Pathways marks side by side — see the IP Pathways section of
+[`../../brand-guide.md`](../../brand-guide.md). Never reach into this folder for it.
+
 ## What changed
 
 | | Tenax IPP (this folder) | Tenax Solutions (2026) |

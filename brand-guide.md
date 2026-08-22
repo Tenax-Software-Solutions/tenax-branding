@@ -386,16 +386,34 @@ Card elevation is subtler than a straight jump to `black-2`; inputs sit at rough
 
 ## IP Pathways co-branding
 
-The homepage carries a **"Stronger Together"** section: *"Tenax Solutions is proud to be
-part of IP Pathways."* The standalone **IP Pathways** wordmark appears there on a raised
-panel.
+**IP Pathways is a Tenax partner. It is not the parent company, and Tenax Solutions is
+not an IP Pathways company.** Any copy that implies ownership is wrong.
 
-This is a **partner mark, not part of the Tenax identity**. It is a different asset from
-the retired `TENAX IPP MAIN LOGO` lockup in `archive/ipp-2025/`, which combined both
-brands into one wordmark and is no longer used.
+That matters here because **the approved homepage designs get this wrong**, in both
+variants:
 
-The repo does not currently hold a standalone IP Pathways logo — see `ASSET-REQUESTS.md`.
-Never reconstruct it from the archived combined lockup.
+| Where | Copy | Problem |
+|-------|------|---------|
+| V3 body | *"Tenax Solutions is proud to be **part of** IP Pathways"* | asserts ownership |
+| V1 footer | *"Tenax Solutions, **an IP Pathways company**"* | asserts ownership |
+| V1 news card | *"IP Pathways **Acquires** Tenax Solutions"* | asserts acquisition |
+| V3 eyebrow | *"IP Pathways **Partnership**"* | correct |
+
+V3 contradicts itself: the section is labelled a partnership and the body underneath says
+Tenax is part of IP Pathways. Whichever variant ships, the body copy needs rewriting
+before launch — this is a factual claim about corporate structure, not a tone preference.
+Raised with the agency in `ASSET-REQUESTS.md`.
+
+The **visual** treatment is unaffected and stays as designed: a co-branded panel carrying
+the standalone IP Pathways wordmark beside the Tenax logo.
+
+That wordmark is a **partner mark, not part of the Tenax identity**. It is a different
+asset from the retired `TENAX IPP MAIN LOGO` lockup in `archive/ipp-2025/`, which fused
+both brands into a single wordmark back when the relationship was structured differently.
+That lockup is retired and must not be revived for co-branding.
+
+The repo does not hold a standalone IP Pathways logo — see `ASSET-REQUESTS.md`. Never
+reconstruct one from the archived combined lockup.
 
 ---
 
@@ -412,7 +430,7 @@ Never reconstruct it from the archived combined lockup.
 - **Confirm `--tenax-action` `#C24830`.** Measured independently in V1 (solid fill,
   `#C34830`) and V3 (gradient end, `#C24830`), but never formally specified. It is the
   only token here not drawn from the identity palette. See `ASSET-REQUESTS.md`.
-- **IP Pathways co-branding.** The standalone partner mark is missing from the logo
-  package, and the two variants word the relationship differently — V1's footer says
-  "Tenax Solutions, an IP Pathways company", V3 says "proud to be part of IP Pathways".
-  Product footers need one approved form.
+- **IP Pathways co-branding.** Two parts. The standalone partner mark is missing from the
+  logo package. Separately, the homepage copy in both variants states the relationship
+  incorrectly — IP Pathways is a **partner**, not the parent — and must be rewritten
+  before launch. Product footers need the corrected form too.
