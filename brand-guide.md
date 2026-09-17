@@ -384,6 +384,35 @@ Card elevation is subtler than a straight jump to `black-2`; inputs sit at rough
 
 ---
 
+## Tagline and company facts
+
+**Tagline: "Ahead of the threat."**
+
+Confirmed September 2026, alongside the approved email signature design. It does not
+appear in the identity PDF — it is Tenax copy, not agency copy, and is recorded here
+because it had no home before.
+
+Set it as a **kicker**: UPPERCASE, `--tenax-tracking-wide`, paired with the company
+name and separated by a middot.
+
+```
+TENAX SOLUTIONS · AHEAD OF THE THREAT.
+```
+
+The kicker rule in *Typography* applies unchanged, including the colour: use
+`--tenax-accent` on dark, and `--tenax-accent-text` on light. Signal Orange cannot
+carry text on a light ground (3.29:1), so a light-mode kicker that reaches for
+`#F45A3C` is a bug. The first implementation is the email signature, where the kicker
+is also what keeps the company name readable when images are blocked.
+
+**Registered address:** 3600 109th St., Urbandale, IA 50322.
+
+Sentence case in prose ("Ahead of the threat."); uppercase only in the kicker form
+above. There is still no approved copyright line or confidentiality footer — see
+*Open items*.
+
+---
+
 ## IP Pathways co-branding
 
 **IP Pathways is a Tenax partner. It is not the parent company, and Tenax Solutions is
@@ -422,6 +451,11 @@ reconstruct one from the archived combined lockup.
 - **Hex discrepancies** between the identity PDF and the shipped vectors — see
   `ASSET-REQUESTS.md`. Tokens follow the PDF; delivered artwork is left untouched.
 - **Monospace face** unspecified by the identity guide.
+- **No copyright line or confidentiality footer.** The tagline and address are settled
+  (see *Tagline and company facts*), but nothing specifies a copyright string or the
+  legal footer for outbound mail. The email signature ships without either, deliberately:
+  a disclaimer belongs in a transport rule scoped to external recipients, not in a
+  signature that would then repeat down every thread.
 - **Which homepage variant is being built.** This is the gating decision. V3 is what the
   tokens and rules here encode. If **V2** is chosen, its primary buttons fail AA — the fix
   is a one-token swap from `--tenax-accent` to `--tenax-action`, but someone has to make
