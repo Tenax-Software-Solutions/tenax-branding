@@ -4,6 +4,7 @@
     "command-black": "#0d1016",
     "sentinel-blue": "#213d6b",
     "signal-orange": "#f45a3c",
+    "signal-deep": "#b7442d",
     "secure-white": "#f5f5f3"
   },
   "ramp": {
@@ -27,6 +28,13 @@
       "3": "#f6836c",
       "4": "#f9ac9d",
       "5": "#fcd5ce"
+    },
+    "deep": {
+      "1": "#b7442d",
+      "2": "#be5641",
+      "3": "#c97261",
+      "4": "#daa195",
+      "5": "#ecd0ca"
     }
   },
   "typography": {
@@ -119,8 +127,8 @@
       "border-strong": "#b8b8b3",
       "text": "#0d1016",
       "accent": "#f45a3c",
-      "accent-text": "#b7270a",
-      "accent-hover": "#cb2b0b",
+      "accent-text": "#b7442d",
+      "accent-hover": "#b7442d",
       "accent-quiet": "#f6836c",
       "on-accent": "#0d1016",
       "action": "#c24830",
@@ -129,10 +137,10 @@
       "accent-gradient-end": "#c24830",
       "accent-gradient": "linear-gradient(90deg, #213d6b, #c24830)",
       "on-accent-gradient": "#ffffff",
-      "focus": "#b7270a",
+      "focus": "#b7442d",
       "focus-width": "2px",
       "focus-offset": "2px",
-      "link": "#b7270a",
+      "link": "#b7442d",
       "blue-surface": "#213d6b",
       "blue-surface-hover": "#365076",
       "on-blue": "#f5f5f3",

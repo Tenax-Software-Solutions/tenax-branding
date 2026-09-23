@@ -1,6 +1,7 @@
 /* ==========================================================================
    Tenax Solutions — design tokens
-   Derived from "Tenax Solutions _Lite Visual Identity" (Digital Mules, 2026).
+   Derived from "Tenax Solutions _Lite Visual Identity" (Digital Mules, 2026;
+   palette revised September 2026 to add Signal Deep).
    See brand-guide.md for the rules these tokens encode.
 
    Every token is prefixed --tenax- so this file can be dropped into an app that
@@ -18,11 +19,14 @@
 
 :root {
   /* ---------------------------------------------------------------------
-     Primitives — the four named brand colours, exactly as published.
+     Primitives — the five named brand colours, exactly as published.
+     Signal Deep was added in the September 2026 revision as the
+     accessibility variant of Signal Orange for light grounds.
      --------------------------------------------------------------------- */
   --tenax-command-black: #0d1016;
   --tenax-sentinel-blue: #213d6b;
   --tenax-signal-orange: #f45a3c;
+  --tenax-signal-deep: #b7442d;
   --tenax-secure-white: #f5f5f3;
 
   /* Tint ramps, sampled from the palette page's tint strips. Step 1 is the
@@ -44,6 +48,12 @@
   --tenax-orange-3: #f6836c;
   --tenax-orange-4: #f9ac9d;
   --tenax-orange-5: #fcd5ce;
+
+  --tenax-deep-1: #b7442d;
+  --tenax-deep-2: #be5641;
+  --tenax-deep-3: #c97261;
+  --tenax-deep-4: #daa195;
+  --tenax-deep-5: #ecd0ca;
 
   /* ---------------------------------------------------------------------
      Typography — Urbanist (display) + Sora (body), per the identity guide.
@@ -198,12 +208,16 @@
   --tenax-text-muted: #494b50; /* black-3; black-4 is only 3.3:1 here */
   --tenax-text-subtle: #494b50;
 
-  /* Signal Orange is only 3.02:1 on Secure White, so it cannot carry text in
-     light mode. --tenax-accent stays the true brand colour for fills, rules
-     and icons; --tenax-accent-text is a same-hue darkening used for words. */
+  /* Signal Orange is only 3.02:1 on Secure White. The identity guide approves
+     it on light grounds for bold headings 24px and up (AA large) and for fills
+     and major accents -- so --tenax-accent stays the true brand colour. Smaller
+     text, links, small icons and borders use Signal Deep (4.96:1), which the
+     guide adds for exactly this job. */
   --tenax-accent: #f45a3c;
-  --tenax-accent-text: #b7270a;
-  --tenax-accent-hover: #cb2b0b;
+  --tenax-accent-text: #b7442d;
+  /* Signal Deep's lighter tints fail as text here (deep-2 is 4.18:1), so hover
+     keeps the colour and is signalled with an underline instead. */
+  --tenax-accent-hover: #b7442d;
   --tenax-accent-quiet: #f6836c;
   --tenax-on-accent: #0d1016;
 
@@ -219,8 +233,8 @@
   );
   --tenax-on-accent-gradient: #ffffff;
 
-  --tenax-focus: #b7270a;
-  --tenax-link: #b7270a;
+  --tenax-focus: #b7442d;
+  --tenax-link: #b7442d;
 
   --tenax-blue-surface: #213d6b;
   --tenax-blue-surface-hover: #365076;

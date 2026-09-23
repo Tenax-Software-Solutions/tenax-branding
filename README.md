@@ -2,7 +2,8 @@
 
 Single source of truth for Tenax Solutions brand assets and the tools that apply them.
 
-Currently carrying the **2026 Tenax Solutions identity** (Digital Mules, July 2026),
+Currently carrying the **2026 Tenax Solutions identity** (Digital Mules, July 2026;
+palette revised September 2026),
 which fully replaces the previous Tenax IPP branding. Start with
 [`brand-guide.md`](brand-guide.md), then open [`reference/index.html`](reference/index.html)
 in a browser.
