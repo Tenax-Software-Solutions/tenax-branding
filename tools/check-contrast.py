@@ -37,6 +37,8 @@ CONTRACT = [
     ("--tenax-text-subtle", "--tenax-bg", AA_LARGE, "large/decorative text only"),
     ("--tenax-accent-text", "--tenax-bg", AA_NORMAL, "orange word highlights on the page"),
     ("--tenax-accent-text", "--tenax-surface", AA_NORMAL, "orange word highlights on a card"),
+    ("--tenax-accent", "--tenax-bg", AA_LARGE, "Signal Orange keyword in a bold heading >=24px"),
+    ("--tenax-accent", "--tenax-surface", AA_LARGE, "Signal Orange heading keyword on a card"),
     ("--tenax-on-accent", "--tenax-accent", AA_NORMAL, "label on an orange fill"),
     ("--tenax-on-blue", "--tenax-blue-surface", AA_NORMAL, "text on a Sentinel Blue field"),
     ("--tenax-on-action", "--tenax-action", AA_NORMAL, "label on a solid action-orange fill"),
@@ -58,7 +60,10 @@ HAZARDS = [
     ("--tenax-sentinel-blue", "--tenax-bg",
      "Sentinel Blue as a foreground on Command Black — why blue is a surface, never text"),
     ("--tenax-signal-orange", "--tenax-secure-white",
-     "Signal Orange as text on Secure White — why light mode needs --tenax-accent-text"),
+     "Signal Orange as small text on Secure White — why light mode uses Signal Deep for "
+     "--tenax-accent-text (Signal Orange is approved there only for bold headings >=24px)"),
+    ("--tenax-signal-deep", "--tenax-bg",
+     "Signal Deep on Command Black — why Signal Deep is a light-ground colour only"),
     ("--tenax-on-action", "--tenax-accent",
      "a white label on Signal Orange — why --tenax-action is darkened, and what design "
      "variant V2 shipped"),

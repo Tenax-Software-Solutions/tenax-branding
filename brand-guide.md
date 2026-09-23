@@ -5,7 +5,7 @@ consoles. New and existing apps adopt the tokens and rules below so every surfac
 like it came from the same company.
 
 **Brand authority:** `source/Tenax Solutions _Lite Visual Identity.pdf` (Digital Mules,
-July 2026) and the logo package beside it. That PDF is the source of truth for colour,
+July 2026, palette page revised September 2026) and the logo package beside it. That PDF is the source of truth for colour,
 type and logo usage. This document is the *web* application of it — the identity guide is
 a "Lite" package aimed at marketing, so everything it doesn't cover (surfaces, states,
 spacing, status colours) is defined here and marked as such.
@@ -19,14 +19,18 @@ spacing, status colours) is defined here and marked as such.
 
 ## Palette
 
-Four named colours. Everything else derives from their tint ramps.
+Five named colours. Everything else derives from their tint ramps.
 
 | Role | Name | Hex | RGB | CMYK |
 |------|------|-----|-----|------|
 | Foundation | **Command Black** | `#0D1016` | 13, 16, 22 | 41, 27, 0, 91 |
 | Secondary | **Sentinel Blue** | `#213D6B` | 33, 61, 107 | 69, 43, 0, 58 |
 | Accent | **Signal Orange** | `#F45A3C` | 244, 90, 60 | 0, 63, 75, 4 |
+| Accent, light grounds | **Signal Deep** | `#B7442D` | 183, 68, 45 | 0, 63, 75, 28 |
 | Light | **Secure White** | `#F5F5F3` | 245, 245, 243 | 0, 0, 1, 4 |
+
+Signal Deep arrived in the September 2026 revision of the identity guide. It is Signal
+Orange's accessibility variant for light backgrounds. See *Signal Deep* below.
 
 Tint ramps, as printed on the identity guide's palette page. Step 1 is the named colour:
 
@@ -35,6 +39,7 @@ Tint ramps, as printed on the identity guide's palette page. Step 1 is the named
 | black | `#0D1016` | `#24272C` | `#494B50` | `#85878A` | `#EFEFF0` |
 | blue | `#213D6B` | `#365076` | `#586D8D` | `#8F9DB3` | `#C7CED9` |
 | orange | `#F45A3C` | `#F56A4F` | `#F6836C` | `#F9AC9D` | `#FCD5CE` |
+| deep | `#B7442D` | `#BE5641` | `#C97261` | `#DAA195` | `#ECD0CA` |
 
 The black ramp supplies surfaces, borders and muted text. Use it instead of inventing
 greys.
@@ -50,11 +55,13 @@ borders on a dark background.
 
 **2. White text never goes on Signal Orange.**
 Secure White on Signal Orange is **3.02:1** — it fails AA. Orange fills take Command
-Black labels (**5.78:1**). In light mode orange can't carry text at all, which is why
-`--tenax-accent-text` exists as a darkened same-hue variant.
+Black labels (**5.78:1**). The same 3.02:1 is why, on a light ground, Signal Orange is
+approved only for bold headings of 24px or more. Smaller text, links and icons use
+**Signal Deep** (**4.96:1**) through `--tenax-accent-text`.
 
 Reference ratios on Command Black: Secure White 17.44 · Signal Orange 5.78 ·
-Sentinel Blue 1.76.
+Signal Deep 3.52 · Sentinel Blue 1.76. On Secure White: Signal Deep 4.96 · Signal
+Orange 3.02.
 
 ---
 
@@ -74,6 +81,27 @@ a hero band, a card or a table row in it.
 
 The one place orange appears as a fill is the primary action gradient below, where it is
 the end stop rather than the whole surface.
+
+### Signal Deep, for light grounds
+
+The identity guide splits the orange's jobs by background:
+
+| | On Command Black | On a light ground |
+|---|---|---|
+| Signal Orange `#F45A3C` | text, icons, rules, fills, brand moments | fills, major accents, **bold headings ≥24px** |
+| Signal Deep `#B7442D` | not used (3.52:1) | **text, links, small icons, borders** |
+
+In tokens, `--tenax-accent-text`, `--tenax-link` and `--tenax-focus` resolve to Signal Deep
+in the light theme. `--tenax-accent` stays Signal Orange in both themes. A bold 24px+
+headline keyword may use either token; the small uppercase kicker must use
+`--tenax-accent-text`.
+
+Signal Deep **does not replace Signal Orange** for fills or primary brand moments. It is
+also not the button fill. `--tenax-action` `#C24830` is a separate colour (see below), and
+the two are only 1.1:1 apart, so never put one on the other.
+
+Before this revision the light theme used a home-made `#B7270A` for the same job. Signal
+Deep replaces it, and `#B7270A` should not appear in new work.
 
 The approved homepage design applies this with real discipline: **exactly one keyword per
 headline** in orange, never a phrase and never two — "Ahead of the *Threat*.", "*Security*
@@ -307,7 +335,7 @@ Key semantic tokens:
 | `--tenax-bg` / `--tenax-surface` / `--tenax-surface-raised` | page, card, raised card |
 | `--tenax-border` / `--tenax-border-strong` | hairline separator / deliberate divider |
 | `--tenax-text` / `--tenax-text-muted` / `--tenax-text-subtle` | body / helper / large-only |
-| `--tenax-accent` / `--tenax-accent-text` | orange fill+rule / orange as words |
+| `--tenax-accent` / `--tenax-accent-text` | Signal Orange fill, rule, large heading / orange as words (Signal Deep in light) |
 | `--tenax-on-accent` | label on an orange fill (dark, never white) |
 | `--tenax-blue-surface` / `--tenax-on-blue` | Sentinel Blue field + its text |
 | `--tenax-success` `-info` `-warning` `-error` / `--tenax-on-status` | status fills + labels |
@@ -400,9 +428,9 @@ TENAX SOLUTIONS · AHEAD OF THE THREAT.
 ```
 
 The kicker rule in *Typography* applies unchanged, including the colour: use
-`--tenax-accent` on dark, and `--tenax-accent-text` on light. Signal Orange cannot
-carry text on a light ground (3.29:1), so a light-mode kicker that reaches for
-`#F45A3C` is a bug. The first implementation is the email signature, where the kicker
+`--tenax-accent` on dark, and `--tenax-accent-text` (Signal Deep) on light. A kicker is
+small text, and Signal Orange is approved on light grounds only for bold headings of 24px
+or more (3.02:1). A light-mode kicker that reaches for `#F45A3C` is a bug. The first implementation is the email signature, where the kicker
 is also what keeps the company name readable when images are blocked.
 
 **Registered address:** 3600 109th St., Urbandale, IA 50322.
@@ -463,7 +491,9 @@ reconstruct one from the archived combined lockup.
   load-bearing, since 29% of that page is light.
 - **Confirm `--tenax-action` `#C24830`.** Measured independently in V1 (solid fill,
   `#C34830`) and V3 (gradient end, `#C24830`), but never formally specified. It is the
-  only token here not drawn from the identity palette. See `ASSET-REQUESTS.md`.
+  only token here not drawn from the identity palette. The September revision added
+  Signal Deep but says it is not for fills, so it doesn't settle this. See
+  `ASSET-REQUESTS.md`.
 - **IP Pathways co-branding.** Two parts. The standalone partner mark is missing from the
   logo package. Separately, the homepage copy in both variants states the relationship
   incorrectly — IP Pathways is a **partner**, not the parent — and must be rewritten

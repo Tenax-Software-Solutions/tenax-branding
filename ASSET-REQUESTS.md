@@ -8,6 +8,10 @@ We have worked around the two blocking gaps locally (see *What we did in the mea
 but those are our reconstructions, not authoritative originals — we'd like the real
 files.
 
+**Status, September 2026 revision:** the revised guide adds Signal Deep `#B7442D` to the
+palette and is otherwise unchanged. Pages 1 and 3–9 match the July edition pixel for
+pixel, and no new logo files came with it. Every request below is still open.
+
 ---
 
 ## 1. The `Icon/` folder is empty — every format
@@ -137,6 +141,11 @@ choose defaults:
   drop to 3.29:1 and fail. **Please confirm `#C24830` is the intended stop** so we can
   treat it as canonical rather than as a value we reverse-engineered — it is currently the
   only colour in our token set that is not from the identity palette.
+
+  The September revision's Signal Deep `#B7442D` is close to it, but the guide says
+  Signal Deep should not be used for fills. So we still need to know whether buttons
+  should use `#C24830`, move to Signal Deep, or use something else. (A white label on
+  Signal Deep is 5.41:1, so any of these would be accessible.)
 
 ---
 

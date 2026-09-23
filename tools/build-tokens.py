@@ -36,8 +36,8 @@ SECTIONS = [
     ("transition", "motion"),
 ]
 
-BRAND = ("command-black", "sentinel-blue", "signal-orange", "secure-white")
-RAMPS = ("black-", "blue-", "orange-")
+BRAND = ("command-black", "sentinel-blue", "signal-orange", "signal-deep", "secure-white")
+RAMPS = ("black-", "blue-", "orange-", "deep-")
 
 
 def classify(name: str) -> str:

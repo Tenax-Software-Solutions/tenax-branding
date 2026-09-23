@@ -181,10 +181,10 @@
 <section>
   <h2>Palette</h2>
   <p class="lede">
-    Four named colours from the identity guide. Ratios shown are against the current
+    Five named colours from the identity guide. Ratios shown are against the current
     theme's page background.
   </p>
-  <div class="grid cols-4" id="brand-swatches"></div>
+  <div class="grid cols-5" id="brand-swatches"></div>
 
   <h3>Tint ramps</h3>
   <p class="lede">Sampled from the guide's palette page. These supply surfaces, borders and muted text — so apps don't invent their own greys.</p>
@@ -414,7 +414,8 @@ function roleTags(hex) {
 const BRAND = [
   ['Command Black','command-black','Foundation. Page background, and the tile behind the favicon.'],
   ['Sentinel Blue','sentinel-blue','Surface only — never a foreground on dark.'],
-  ['Signal Orange','signal-orange','The single accent. Text, icons, rules — never a large fill.'],
+  ['Signal Orange','signal-orange','The brand accent. Fills, rules, text on dark, bold headings ≥24px on light.'],
+  ['Signal Deep','signal-deep','Signal Orange for light grounds: text, links, small icons, borders. Not for fills.'],
   ['Secure White','secure-white','Primary text on dark; page background in light mode.'],
 ];
 const SCALE = [['5xl','Display'],['4xl','Page title'],['3xl','Section'],['2xl','Subsection'],
@@ -443,7 +444,7 @@ function render() {
       </div></div>`;
   }).join('');
 
-  document.getElementById('ramps').innerHTML = ['black','blue','orange'].map(fam => {
+  document.getElementById('ramps').innerHTML = ['black','blue','orange','deep'].map(fam => {
     const steps = [1,2,3,4,5].map(i => {
       const hex = tok(`${fam}-${i}`);
       const fg = lum(hex) > 0.35 ? '#0d1016' : '#f5f5f3';
