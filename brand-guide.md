@@ -414,17 +414,17 @@ Card elevation is subtler than a straight jump to `black-2`; inputs sit at rough
 
 ## Tagline and company facts
 
-**Tagline: "Ahead of the threat."**
+**Tagline: "Your Technology. Our Security"**
 
-Confirmed September 2026, alongside the approved email signature design. It does not
-appear in the identity PDF — it is Tenax copy, not agency copy, and is recorded here
-because it had no home before.
+Changed 2026-09-30, replacing "Ahead of the threat." (confirmed September 2026 alongside
+the approved email signature design). It does not appear in the identity PDF — it is
+Tenax copy, not agency copy, and is recorded here because it had no home before.
 
 Set it as a **kicker**: UPPERCASE, `--tenax-tracking-wide`, paired with the company
 name and separated by a middot.
 
 ```
-TENAX SOLUTIONS · AHEAD OF THE THREAT.
+TENAX SOLUTIONS · YOUR TECHNOLOGY. OUR SECURITY
 ```
 
 The kicker rule in *Typography* applies unchanged, including the colour: use
@@ -435,8 +435,8 @@ is also what keeps the company name readable when images are blocked.
 
 **Registered address:** 3600 109th St., Urbandale, IA 50322.
 
-Sentence case in prose ("Ahead of the threat."); uppercase only in the kicker form
-above. There is still no approved copyright line or confidentiality footer — see
+Written as above in prose ("Your Technology. Our Security", no closing full stop);
+uppercase only in the kicker form above. There is still no approved copyright line or confidentiality footer — see
 *Open items*.
 
 ---
